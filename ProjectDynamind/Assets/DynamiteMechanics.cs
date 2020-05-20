@@ -5,25 +5,30 @@ using UnityEngine;
 
 public class DynamiteMechanics : MonoBehaviour
 {
-    //TODO: Adjust explosion/throw forces, radius etc.
-    public Transform spawnPos; // change to hand in which dyn is supposed to be held
-    public GameObject spawnee; // change to dyn object
-    public GameObject obj; // change to dyn object
+    public Transform spawnPos;
+
+    public GameObject dynSpawnee;
+    public GameObject dynObj;
+    public GameObject explosionEffect;
+    public GameObject camera;
+
     public float countdown = 3;
-    public float throwForce = 400f; 
+    public float throwForce = 400f;
     public bool thrown = false;
 
     void Update()
     {
-        if (GameObject.Find("Dynamite(Clone)") == null ) // create one object when none exist
-        
+        if (GameObject.Find("Dynamite(Clone)") == null) // create one object when none exist
         {
-             obj =Instantiate(spawnee, spawnPos.position, spawnPos.rotation);
+            dynObj = Instantiate(dynSpawnee, spawnPos);
+            Rigidbody rb = dynObj.GetComponent<Rigidbody>();
         }
-        if (Input.GetMouseButtonDown(1) && GameObject.Find("Dynamite(Clone)") != null) // when obj exists and we press 'throw'-button it throws
+
+        else if (Input.GetMouseButtonDown(1) && GameObject.Find("Dynamite(Clone)") != null && !thrown) // when obj exists and we press 'throw'-button it throws
         {
             ThrowDynamite();
         }
+
         countdown -= Time.deltaTime; // change countdown to facilitate automatic explosion
         if ((countdown <= 0 || Input.GetKey("e")) && thrown) // or explosion when 'explosion'-key is pressed
         {
@@ -32,10 +37,12 @@ public class DynamiteMechanics : MonoBehaviour
     }
     void ThrowDynamite()
     {
-        GameObject dynamite = obj;
-        Rigidbody rb = dynamite.GetComponent<Rigidbody>();
-        rb.AddForce(transform.forward * throwForce); // throw item forward (from camera angle)
+        dynObj.transform.SetParent(null); //unchain dyn from player movement
+
+        Rigidbody rb = dynObj.GetComponent<Rigidbody>();
+        rb.AddForce(camera.transform.forward * throwForce); // throw item forward (from camera angle)
         rb.useGravity = true;
+
         countdown = 3; // start countdown for automatic explosion
         thrown = true; // allows 'explosion'-key to realize that object is out of characters hand
     }
@@ -43,17 +50,17 @@ public class DynamiteMechanics : MonoBehaviour
     void Explode()
     {
         Collider[] colliders = Physics.OverlapSphere(transform.position, 50f); // get all objects in radius
-
+        Instantiate(explosionEffect, dynObj.transform.position, dynObj.transform.rotation); // explosion effect
         foreach (Collider col in colliders)
         {
             Rigidbody rb = col.GetComponent<Rigidbody>();
             if (rb != null)
             {
-                rb.AddExplosionForce(2000f, obj.transform.position, 10f, 0.2f, ForceMode.Acceleration);
+                rb.AddExplosionForce(2000f, dynObj.transform.position, 10f, 0.2f, ForceMode.Acceleration);
             }
 
         }
-        Destroy(obj);
+        Destroy(dynObj);
         thrown = false;
     }
 }
