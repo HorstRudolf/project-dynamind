@@ -40,8 +40,13 @@ public class Render_Boxes : MonoBehaviour
                         break;
 
                 }
+
+                //states before its drawn what dimensions the cube has
+                Gizmos.matrix = child.localToWorldMatrix;
+
+                //Draws the cube that is specified in Gizmos.matrix
+                Gizmos.DrawCube(Vector3.zero, Vector3.one) ;
                 
-                Gizmos.DrawCube(child.position, child.lossyScale);
             }
         }
     
