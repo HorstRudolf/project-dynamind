@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 1793086462288099389}
   - component: {fileID: 5725929975786778883}
   - component: {fileID: 3157792362779977600}
-  - component: {fileID: 8644779079220721480}
+  - component: {fileID: 3752329144838515985}
   m_Layer: 0
   m_Name: Solid2
   m_TagString: Untagged
@@ -111,7 +111,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &8644779079220721480
+--- !u!64 &3752329144838515985
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
