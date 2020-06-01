@@ -1,17 +1,8 @@
 fileFormatVersion: 2
-guid: e4a98e818c68e9c43a02c667af254863
+guid: 34e4f22397bd0d94cbe6cd323fe18e68
 ModelImporter:
   serializedVersion: 19300
-  internalIDToNameTable:
-  - first:
-      74: -2995755716157988675
-    second: LauncherStock|Reload
-  - first:
-      74: -7388488139736649995
-    second: LauncherStock|Reload.001
-  - first:
-      74: 1224819528558255577
-    second: LauncherStock|Spin
+  internalIDToNameTable: []
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -43,7 +34,7 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 0.08
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -89,7 +80,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 0.08
+    globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
