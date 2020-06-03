@@ -9,7 +9,7 @@ public class DynamiteMechanics : MonoBehaviour
 
     public GameObject dynSpawnee;
     public GameObject dynObj;
-    //public GameObject explosionEffect;
+    public GameObject explosionEffect;
     public GameObject camera;
 
     public float countdown = 3;
@@ -18,13 +18,13 @@ public class DynamiteMechanics : MonoBehaviour
 
     void Update()
     {
-        if (GameObject.Find("DynamiteObject(Clone)") == null) // create one object when none exist
+        if (GameObject.Find("Dynamite(Clone)") == null) // create one object when none exist
         {
             dynObj = Instantiate(dynSpawnee, spawnPos);
             Rigidbody rb = dynObj.GetComponent<Rigidbody>();
         }
 
-        else if (Input.GetMouseButtonDown(1) && GameObject.Find("DynamiteObject(Clone)") != null && !thrown) // when obj exists and we press 'throw'-button it throws
+        else if (Input.GetMouseButtonDown(1) && GameObject.Find("Dynamite(Clone)") != null && !thrown) // when obj exists and we press 'throw'-button it throws
         {
             ThrowDynamite();
         }
@@ -50,7 +50,7 @@ public class DynamiteMechanics : MonoBehaviour
     void Explode()
     {
         Collider[] colliders = Physics.OverlapSphere(transform.position, 50f); // get all objects in radius
-        //Instantiate(explosionEffect, dynObj.transform.position, dynObj.transform.rotation); // explosion effect
+        Instantiate(explosionEffect, dynObj.transform.position, dynObj.transform.rotation); // explosion effect
         foreach (Collider col in colliders)
         {
             Rigidbody rb = col.GetComponent<Rigidbody>();
