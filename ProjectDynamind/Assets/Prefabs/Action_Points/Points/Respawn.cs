@@ -16,7 +16,7 @@ public class Respawn : MonoBehaviour
     void Start()
     {
         //Find the player Object 
-       // player = GameObject.Find(PlayerName);
+        // player = GameObject.Find(PlayerName);
         player = GameObject.FindWithTag("Player");
 
         //set the current Checkpoint position to the position of the SpawnPoint

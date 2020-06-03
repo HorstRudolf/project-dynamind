@@ -6,7 +6,7 @@ using UnityEngine;
 public class Check_Point : MonoBehaviour
 {
     BoxCollider boxCollider;
-    Respawn spawn_Point;
+    Respawn Spawn_Point;
 
     // Start is called before the first frame update
     void Start()
@@ -16,14 +16,14 @@ public class Check_Point : MonoBehaviour
         boxCollider.isTrigger = true;
 
         //fetch the spawnpoint object so it can be referenced Later
-        spawn_Point = GameObject.Find("Spawn_Point").GetComponent<Respawn>();
+        Spawn_Point = GameObject.Find("Spawn_Point").GetComponent<Respawn>();
     }
 
 
     private void OnTriggerEnter(Collider col)
     {
         //if the object entered the collider and Triggered this event is tagged as player 
-        if (col.tag == "Player")
+        if (col.CompareTag("Player"))
         {
             string adress = "";
             Transform currentObject = gameObject.transform;
@@ -46,7 +46,7 @@ public class Check_Point : MonoBehaviour
              * -> you would be able to walk through them and fall down)
             */
             //sets the new spawnpoint to the checkpoints position
-            spawn_Point.currentCheckpointPosition = gameObject.transform.position;
+            Spawn_Point.currentCheckpointPosition = gameObject.transform.position;
         }
     }
 

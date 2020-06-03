@@ -9,13 +9,11 @@ using UnityEngine.UI;
 [ExecuteInEditMode]
 public class Render_Boxes : MonoBehaviour
 {
-   
-    GameObject[] gameObjects;
-    public Color SpawnColor, CheckpointColor, EndpointColor, StandardColor, FrameColor;
+    public Color SpawnColor, CheckpointColor, EndpointColor, StandardColor, DeathColor, FrameColor;
 
 
 
-    //Draws A cube arround every Triggerzone
+    //Draws A cube around every trigger-zone
     void OnDrawGizmos()
     { 
 
@@ -25,7 +23,6 @@ public class Render_Boxes : MonoBehaviour
         {
             if (child != null)
             {
-
                 switch (child.name)
                 {
                     case string a when a.Contains("Spawn_Point"):
@@ -36,6 +33,9 @@ public class Render_Boxes : MonoBehaviour
                         break;
                     case string a when a.Contains("End_Point"):
                         Gizmos.color = EndpointColor;
+                        break;
+                    case string a when a.Contains("Death_Zone"):
+                        Gizmos.color = DeathColor;
                         break;
                     default:
                         Gizmos.color = StandardColor;
@@ -49,7 +49,6 @@ public class Render_Boxes : MonoBehaviour
                 Gizmos.DrawCube(Vector3.zero, Vector3.one);
                 Gizmos.color = FrameColor;
                 Gizmos.DrawWireCube(Vector3.zero, Vector3.one);
-
             }
         }
     
