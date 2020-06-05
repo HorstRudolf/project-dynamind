@@ -9,7 +9,7 @@ using UnityEngine.UI;
 [ExecuteInEditMode]
 public class Render_Boxes : MonoBehaviour
 {
-    public Color SpawnColor, CheckpointColor, EndpointColor, StandardColor, DeathColor, FrameColor;
+    public Color SpawnColor, CheckpointColor, EndpointColor, StandardColor, DeathColor, DestructionColor, FrameColor;
 
 
 
@@ -36,6 +36,9 @@ public class Render_Boxes : MonoBehaviour
                         break;
                     case string a when a.Contains("Death_Zone"):
                         Gizmos.color = DeathColor;
+                        break;
+                    case string a when a.Contains("Destruction_Zone"):
+                        Gizmos.color = DestructionColor;
                         break;
                     default:
                         Gizmos.color = StandardColor;
