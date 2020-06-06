@@ -596,11 +596,6 @@ PrefabInstance:
       propertyPath: DestructionColor.b
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3779326273630656525, guid: 46057a5bbc2a70144b0c63984388a795,
-        type: 3}
-      propertyPath: nextScene
-      value: Test_Scene_LevelDesign
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 46057a5bbc2a70144b0c63984388a795, type: 3}
 --- !u!1 &255889104 stripped

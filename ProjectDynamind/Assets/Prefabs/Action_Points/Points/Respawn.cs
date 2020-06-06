@@ -6,7 +6,7 @@ public class Respawn : MonoBehaviour
 {
     public string PlayerName = "Player";
     public bool isDead = false, isResetting = false;
-    CharacterController player;
+    GameObject player;
 
     //TODO: See if somehow I can use the data-type Check_Point (would give a reference to the current check Point too)
     public Vector3 currentCheckpointPosition;
@@ -17,13 +17,7 @@ public class Respawn : MonoBehaviour
     {
         //Find the player Object 
         // player = GameObject.Find(PlayerName);
-        GameObject current = GameObject.FindWithTag("Player");
-
-        //since it would lead to proplems when only a child of a the player is moved
-        player = current.GetComponentInParent<CharacterController>();
-
-        if (player == null)
-            Debug.LogError("noooo!");
+        player = GameObject.FindWithTag("Player");
 
         //set the current Checkpoint position to the position of the SpawnPoint
         currentCheckpointPosition = gameObject.transform.position;
@@ -36,18 +30,13 @@ public class Respawn : MonoBehaviour
         if (isResetting)
         {
             //set players position and the checkpoints position to the spawnpoints position
-            player.enabled = false;
             player.transform.position = currentCheckpointPosition = gameObject.transform.position;
-            player.enabled = true;
             isResetting = false;
         }
         else if (isDead)
         {
             //set the players position the last checkpoints position
-            player.enabled = false;
             player.transform.position = currentCheckpointPosition;
-            player.enabled = true;
-
             isDead = false;
         }
     }
