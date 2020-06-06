@@ -34,7 +34,7 @@ public class Death_Zone : MonoBehaviour
             Debug.Log($"Sent by \"{adress}\": Death at: {gameObject.name}");
 
             //TODO: swap with trigger.
-            SpawnPoint.isDead = true;
+            SpawnPoint.Kill();
         }
     }
 
