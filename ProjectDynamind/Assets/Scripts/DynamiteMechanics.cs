@@ -21,14 +21,14 @@ public class DynamiteMechanics : MonoBehaviour
 
     void Update()
     {
-
+       
 
         if (GameObject.Find("DynamiteObject(Clone)") == null && countdown <= 0) // create one object when none exist
         {
             dynObj = Instantiate(dynSpawnee, spawnPos);
             Rigidbody rb = dynObj.GetComponent<Rigidbody>();
+            dynObj.GetComponent<CapsuleCollider>().enabled = false;
         }
-
         else if (Input.GetMouseButtonDown(1) && GameObject.Find("DynamiteObject(Clone)") != null && !thrown) // when obj exists and we press 'throw'-button it throws
         {
             ThrowDynamite();
@@ -44,7 +44,7 @@ public class DynamiteMechanics : MonoBehaviour
     void ThrowDynamite()
     {
         dynObj.transform.SetParent(null); //unchain dyn from player movement
-
+        dynObj.GetComponent<CapsuleCollider>().enabled = true;
         Rigidbody rb = dynObj.GetComponent<Rigidbody>();
         rb.AddForce(cam.transform.forward * throwForce); // throw item forward (from camera angle)
         rb.useGravity = true;
