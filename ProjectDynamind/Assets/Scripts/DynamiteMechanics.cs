@@ -13,7 +13,7 @@ public class DynamiteMechanics : MonoBehaviour
     public GameObject cam;
     public CharacterController playerObj;
 
-    public float countdown = 3;
+    public float countdown = 0;
     public float throwForce = 400f;
     public bool thrown = false;
 
@@ -55,7 +55,7 @@ public class DynamiteMechanics : MonoBehaviour
 
     void Explode()
     {
-        Collider[] colliders = Physics.OverlapSphere(dynObj.transform.position, 5f); // get all objects in radius
+        Collider[] colliders = Physics.OverlapSphere(dynObj.transform.position, 10f); // get all objects in radius
         //Instantiate(explosionEffect, dynObj.transform.position, dynObj.transform.rotation); // explosion effect
         foreach (Collider col in colliders)
         {
@@ -63,7 +63,7 @@ public class DynamiteMechanics : MonoBehaviour
             Rigidbody rb = col.GetComponent<Rigidbody>();
             if (rb != null)
             {
-                rb.AddExplosionForce(1000f, dynObj.transform.position, 10f, 1f, ForceMode.Acceleration);
+                rb.AddExplosionForce(750f, dynObj.transform.position, 10f, 0.2f, ForceMode.Acceleration);
             }
             else if (col is CharacterController)
             {

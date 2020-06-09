@@ -52,12 +52,8 @@ public class PlayerMovement : MonoBehaviour
     public static void ExplosionForce(Vector3 explosionDir)
     {
         velocity = explosionDir;
-        velocity.y = 10 / velocity.y;
-        velocity.x = 10 / velocity.x;
-        if (velocity.y > 10)
-            velocity.y = 10;
-        else if (velocity.x > 10)
-            velocity.x = 10;
+        velocity.y *= 3;
+
         
        
     }
