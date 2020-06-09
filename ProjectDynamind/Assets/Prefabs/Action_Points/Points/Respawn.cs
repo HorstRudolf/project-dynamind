@@ -24,25 +24,29 @@ public class Respawn : MonoBehaviour
         currentCheckpointPosition = gameObject.transform.position;
     }
 
+    public void Resets()
+    {
+        player.enabled = false;
+        player.transform.position = currentCheckpointPosition = gameObject.transform.position;
+        player.enabled = true;
+        isResetting = false;
+    }
+
+    public void Kill()
+    {
+        player.enabled = false;
+        player.transform.position = currentCheckpointPosition;
+        player.enabled = true;
+        isDead = false;
+    }
+
     // Update is called once per frame
     void Update()
     {
-        //TODO: See if I can use Triggers or events
-        if (isResetting)
-        {
-            //set players position and the checkpoints position to the spawnpoints position
-            player.enabled = false;
-            player.transform.position = currentCheckpointPosition = gameObject.transform.position;
-            player.enabled = true;
-            isResetting = false;
-        }
-        else if (isDead)
-        {
-            //set the players position the last checkpoints position
-            player.enabled = false;
-            player.transform.position = currentCheckpointPosition;
-            player.enabled = true;
-            isDead = false;
-        }
+        //TODO: see if keycodes could be swapped with custome keycodes to better remap them (e.g. Tastaturzuweiseung)
+        if (Input.GetKeyDown(KeyCode.F1))
+            Kill();
+        else if (Input.GetKeyDown(KeyCode.F2))
+            Resets();
     }
 }
