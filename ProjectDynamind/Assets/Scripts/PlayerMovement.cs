@@ -13,10 +13,6 @@ public class PlayerMovement : MonoBehaviour
     public float gravity = -9.81f;
     public float jumpHeigth = 3f;
 
-    public Transform groundCheck;
-    public float groundDistance = 0.4f;
-    public LayerMask groundMask;
-
     public static Vector3 velocity;
     bool isGrounded;
 
@@ -32,18 +28,22 @@ public class PlayerMovement : MonoBehaviour
             velocity = new Vector3(0, 0, 0);
         }
 
+        // Process user input
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
         Vector3 move = transform.right * x + transform.forward * z;
 
+        // Move player
         controller.Move(move * speed * Time.deltaTime);
+
+
         if (Input.GetKey(KeyCode.Space) && isGrounded)
-        //if (Input.GetButtonDown("Jump") && isGrounded)
         {
             velocity.y = Mathf.Sqrt(jumpHeigth * -2f * gravity);
         }
 
+        // fall speed
         velocity.y += gravity * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime);        
@@ -52,9 +52,7 @@ public class PlayerMovement : MonoBehaviour
     public static void ExplosionForce(Vector3 explosionDir)
     {
         velocity = explosionDir;
-        velocity.y *= 3;
-
-        
+        velocity.y *= 3;        
        
     }
 
