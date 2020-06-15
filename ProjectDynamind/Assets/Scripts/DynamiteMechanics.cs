@@ -45,6 +45,7 @@ public class DynamiteMechanics : MonoBehaviour
     {
         dynObj.transform.SetParent(null); //unchain dyn from player movement
         dynObj.GetComponent<CapsuleCollider>().enabled = true;
+
         Rigidbody rb = dynObj.GetComponent<Rigidbody>();
         rb.AddForce(cam.transform.forward * throwForce); // throw item forward (from camera angle)
         rb.useGravity = true;
@@ -57,13 +58,13 @@ public class DynamiteMechanics : MonoBehaviour
     {
         Collider[] colliders = Physics.OverlapSphere(dynObj.transform.position, 10f); // get all objects in radius
         //Instantiate(explosionEffect, dynObj.transform.position, dynObj.transform.rotation); // explosion effect
+
         foreach (Collider col in colliders)
         {
-            Debug.Log(col);
             Rigidbody rb = col.GetComponent<Rigidbody>();
             if (rb != null)
             {
-                rb.AddExplosionForce(750f, dynObj.transform.position, 10f, 0.2f, ForceMode.Acceleration);
+                rb.AddExplosionForce(750f, dynObj.transform.position, 10f, 0.1f, ForceMode.Acceleration);
             }
             else if (col is CharacterController)
             {
@@ -71,6 +72,7 @@ public class DynamiteMechanics : MonoBehaviour
                 PlayerMovement.ExplosionForce(explDir);
             }
         }
+
         Destroy(dynObj);
         thrown = false;
         countdown = 2;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using UnityEngine;
 using UnityEngine.Windows.Speech;
 
@@ -45,15 +46,24 @@ public class PlayerMovement : MonoBehaviour
 
         // fall speed
         velocity.y += gravity * Time.deltaTime;
-
         controller.Move(velocity * Time.deltaTime);        
-
     }
     public static void ExplosionForce(Vector3 explosionDir)
     {
-        velocity = explosionDir;
-        velocity.y *= 3;        
-       
+        velocity = explosionDir; 
+
+        double distance = Math.Sqrt(Math.Abs(velocity.x * velocity.x + velocity.z * velocity.z)); //caculate distance from Object to Player with pythagoras
+
+        distance = (distance < 0.1f) ? 0.1f : (distance > 4f) ? 100f : distance;    // keep distance between 0.1 and 4 to avoid flying unrealistically far
+                                                                                    // getting impacted when distance is too high
+        velocity.x += (float)(5 * explosionDir.x / distance);
+        velocity.z += (float)(5 * explosionDir.z / distance);
+
+        float yScaling = (float)(1 / Math.Abs(distance * 0.2)); 
+        velocity.y += (yScaling > 5f) ? 5f : (yScaling < 0.5f) ? 0f : yScaling;
+        
+
+
     }
 
 }
