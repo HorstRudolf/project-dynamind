@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 2809037721560878824}
   - component: {fileID: 2809037721560878825}
   - component: {fileID: 2809037721560878806}
+  - component: {fileID: 425232869}
   m_Layer: 0
   m_Name: PlayerObject
   m_TagString: Player
@@ -174,7 +175,7 @@ CharacterController:
   m_Height: 3.6
   m_Radius: 0.6
   m_SlopeLimit: 45
-  m_StepOffset: 0.3
+  m_StepOffset: 0
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
@@ -194,11 +195,6 @@ MonoBehaviour:
   speed: 12
   gravity: -9.81
   jumpHeigth: 3
-  groundCheck: {fileID: 2809037722236372495}
-  groundDistance: 0
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 256
 --- !u!114 &2809037721560878806
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -220,6 +216,18 @@ MonoBehaviour:
   countdown: 3
   throwForce: 400
   thrown: 0
+--- !u!114 &425232869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2809037721560878804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e73c009958f1fb54e8926e4d4cffce37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2809037721651929858
 GameObject:
   m_ObjectHideFlags: 0
