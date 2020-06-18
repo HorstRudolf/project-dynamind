@@ -15,7 +15,7 @@ public class PushObjects : MonoBehaviour
         {
             return;
         }
-        Debug.Log(hit.moveDirection.y);
+
         // We dont want to push objects below us
         if (hit.moveDirection.y < -0.3)
         {
