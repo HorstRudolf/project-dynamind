@@ -48,6 +48,8 @@ public class PlayerMovement : MonoBehaviour
         if (pickedUpItem && Input.GetMouseButtonUp(1))
         {
             rbItem.ThrowItem(throwCountdown);
+            throwCountdown = 0;
+            throwCountdownStarted = false;
         }
    
         if (throwCountdownStarted)
