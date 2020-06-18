@@ -191,10 +191,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 022d6d523314ae0449a8f82c5d8272c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 2809037721560878804}
   controller: {fileID: 2809037721560878824}
+  dest: {fileID: 2809037721221846960}
+  hand: {fileID: 2809037721221846961}
   speed: 12
   gravity: -9.81
   jumpHeigth: 3
+  movementSpeedModifier: 1
 --- !u!114 &2809037721560878806
 MonoBehaviour:
   m_ObjectHideFlags: 0

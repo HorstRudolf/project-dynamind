@@ -13,17 +13,17 @@ public class DynamiteMechanics : MonoBehaviour
     public GameObject cam;
     public CharacterController playerObj;
 
+    public static bool pickedUpGameObject;
     public float countdown = 0;
     public float throwForce = 400f;
     public bool thrown = false;
 
-    Vector3 vel;
+
 
     void Update()
     {
-       
-
-        if (GameObject.Find("DynamiteObject(Clone)") == null && countdown <= 0) // create one object when none exist
+        
+        if (GameObject.Find("DynamiteObject(Clone)") == null && countdown <= 0 && !pickedUpGameObject) // create one object when none exist
         {
             dynObj = Instantiate(dynSpawnee, spawnPos);
             Rigidbody rb = dynObj.GetComponent<Rigidbody>();
@@ -76,5 +76,16 @@ public class DynamiteMechanics : MonoBehaviour
         Destroy(dynObj);
         thrown = false;
         countdown = 2;
+    }
+
+
+    public static void PickedUpAnItem()
+    {
+        pickedUpGameObject = true;
+    }
+
+    public static void ThrewDownItem()
+    {
+        pickedUpGameObject = false;
     }
 }
