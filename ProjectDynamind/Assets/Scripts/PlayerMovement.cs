@@ -109,7 +109,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector3 destin = dest.transform.position; //'Hand' that holds the item
 
-        Collider[] colliders = Physics.OverlapSphere((destin), 1f); // check to see if theres an item nearby
+        Collider[] colliders = Physics.OverlapSphere((destin), 2f); // check to see if theres an item nearby
 
         foreach (Collider c in colliders)
         {
