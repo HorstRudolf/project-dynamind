@@ -9,7 +9,7 @@ public class PickUp : MonoBehaviour
     public Transform destination;
     public GameObject cam;
     bool  pickedUp = false;
-    float force = 400;
+    float force = 500;
 
     public void PickUpItem()
     {
@@ -40,7 +40,7 @@ public class PickUp : MonoBehaviour
         rbItem.constraints = RigidbodyConstraints.None; // and remove its constraints that were introduced in the PickUp method
         rbItem.useGravity = true;
 
-        rbItem.AddForce(cam.transform.forward * force); // throw item
+        rbItem.AddForce(cam.transform.forward * throwForce); // throw item
         pickedUp = false;                           // And tell our player that his hands are 'free' again
         DynamiteMechanics.ThrewDownItem();
 

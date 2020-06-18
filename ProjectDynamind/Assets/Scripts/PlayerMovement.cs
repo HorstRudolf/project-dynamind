@@ -25,7 +25,7 @@ public class PlayerMovement : MonoBehaviour
     bool throwCountdownStarted = false;
     PickUp rbItem;
 
-    enum GroundType {Floor = 1, SmallAngle = 2, MedAngle = 3, BigAngle = 4, Untagged = 1, Light = 1, Medium = 1, Heavy = 1, DeathZone = 1 }
+    enum GroundType {Floor = 1, SmallAngle = 2, MediumAngle = 3, BigAngle = 4, Untagged = 1, Light = 1, Medium = 1, Heavy = 1, DeathZone = 1 }
     enum ObjectType {None = 1, Light = 2, Medium = 3, Heavy = 4, Untagged = 1 }
     public double movementSpeedModifier = 1;
 
@@ -132,7 +132,7 @@ public class PlayerMovement : MonoBehaviour
         if (hand.transform.childCount > 0) // check to see if player is currently holding an item
         {
             Transform objInHand = hand.transform.GetChild(0);
-            ObjectType oj = (ObjectType)System.Enum.Parse(typeof(ObjectType), objInHand.tag); 
+            ObjectType oj = (ObjectType)System.Enum.Parse(typeof(ObjectType), objInHand.tag);
             if ((int)oj <= 3)            // if item is 'medium' heavy or lighter we can move while holding it
             {
                 moveSpeedModOj = (double)1 /(1+0.5*((int)oj-1));
@@ -146,12 +146,14 @@ public class PlayerMovement : MonoBehaviour
         Collider[] col = Physics.OverlapSphere(player.transform.position, 2f);
         foreach(Collider c in col)
         {
+           
             if (c.tag != "Player") // check for objects that collide, that are not our player
-            { 
+            {
                 GroundType gt = (GroundType)System.Enum.Parse(typeof(GroundType), c.tag); // get 'weight' of item
                 moveSpeedModGt = (double)1/(1 + 0.75*((int)gt-1));                        // and adjust movespeed based on that
             }   
          }
         movementSpeedModifier = (double)moveSpeedModGt * moveSpeedModOj;
+
     }
 }
