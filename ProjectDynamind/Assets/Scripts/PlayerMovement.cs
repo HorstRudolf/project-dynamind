@@ -21,8 +21,13 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        PlayerMove();
+    }
+
+    public void PlayerMove()
+    {
         isGrounded = controller.isGrounded;
-        
+
         if (isGrounded && velocity.y < 0)
         {
             velocity.y = -2f;
@@ -46,7 +51,7 @@ public class PlayerMovement : MonoBehaviour
 
         // fall speed
         velocity.y += gravity * Time.deltaTime;
-        controller.Move(velocity * Time.deltaTime);        
+        controller.Move(velocity * Time.deltaTime);
     }
     public static void ExplosionForce(Vector3 explosionDir)
     {
