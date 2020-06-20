@@ -3,25 +3,80 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 using UnityEngine;
+using UnityEngine.UIElements;
 using UnityEngine.Windows.Speech;
 
+[RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
 {
 
     public CharacterController controller;
-
+    [SerializeField]
+    private LayerMask LadderMask;
     public float speed = 12f;
     public float gravity = -9.81f;
     public float jumpHeigth = 3f;
 
     public static Vector3 velocity;
     bool isGrounded;
+    [SerializeField]
+    BoxCollider boxCollider;
 
+    public enum Status { LadderClimbing, Walking }
+
+    public Status currentStatus = Status.Walking;
 
     // Update is called once per frame
     void Update()
     {
-        PlayerMove();
+        CheckForLadder();
+    }
+
+    public void LadderMovement(Collider hitCollider)
+    {
+        GameObject Ladder = hitCollider.gameObject;
+        GameObject PlayerObject = controller.gameObject;
+
+
+        if (hitCollider.gameObject.transform.lossyScale.y > PlayerObject.transform.position.y)
+        {
+            // Process user input
+            float z = Input.GetAxis("Vertical");
+
+            Vector3 move = new Vector3(0, z);
+
+            // Move player
+            controller.Move(move * speed * Time.deltaTime);
+
+        }
+
+
+        currentStatus = Status.Walking;
+    }
+
+    public void CheckForLadder()
+    {
+        GameObject PlayerObject = controller.gameObject;
+
+        Collider[] hitColliders = Physics.OverlapBox(PlayerObject.transform.position, transform.localScale / 2, Quaternion.identity, LadderMask);
+
+        if (hitColliders.Length > 0 && currentStatus == Status.Walking)
+        {
+            Collider hitCollider = hitColliders[0];
+            currentStatus = Status.LadderClimbing;
+
+
+            LadderMovement(hitCollider);
+
+        }
+       else
+        {
+            PlayerMove();
+        }
+
+        hitColliders = null;
+
+
     }
 
     public void PlayerMove()
@@ -55,7 +110,7 @@ public class PlayerMovement : MonoBehaviour
     }
     public static void ExplosionForce(Vector3 explosionDir)
     {
-        velocity = explosionDir; 
+        velocity = explosionDir;
 
         double distance = Math.Sqrt(Math.Abs(velocity.x * velocity.x + velocity.z * velocity.z)); //caculate distance from Object to Player with pythagoras
 
@@ -64,9 +119,9 @@ public class PlayerMovement : MonoBehaviour
         velocity.x += (float)(5 * explosionDir.x / distance);
         velocity.z += (float)(5 * explosionDir.z / distance);
 
-        float yScaling = (float)(1 / Math.Abs(distance * 0.2)); 
+        float yScaling = (float)(1 / Math.Abs(distance * 0.2));
         velocity.y += (yScaling > 5f) ? 5f : (yScaling < 0.5f) ? 0f : yScaling;
-        
+
 
 
     }
