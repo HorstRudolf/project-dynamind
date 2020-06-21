@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DynamiteMechanics : MonoBehaviour
 {
@@ -12,26 +13,30 @@ public class DynamiteMechanics : MonoBehaviour
     //public GameObject explosionEffect;
     public GameObject cam;
     public CharacterController playerObj;
+    public Text ui;
 
     public static bool pickedUpGameObject;
     public float countdown = 0;
     public float throwForce = 400f;
     public bool thrown = false;
 
+    static int ammo = 2;
+
+    
 
 
     void Update()
     {
-        
-        if (GameObject.Find("DynamiteObject(Clone)") == null && countdown <= 0 && !pickedUpGameObject) // create one object when none exist
+        ui.text =  ammo + "" ;
+        if (GameObject.Find("DynamiteObject(Clone)") == null && countdown <= 0 && !pickedUpGameObject && ammo > 0) // create one object when none exist
         {
             dynObj = Instantiate(dynSpawnee, spawnPos);
-            Rigidbody rb = dynObj.GetComponent<Rigidbody>();
             dynObj.GetComponent<CapsuleCollider>().enabled = false;
         }
         else if (Input.GetMouseButtonDown(1) && GameObject.Find("DynamiteObject(Clone)") != null && !thrown) // when obj exists and we press 'throw'-button it throws
         {
             ThrowDynamite();
+            ammo--;
         }
 
 
@@ -40,6 +45,7 @@ public class DynamiteMechanics : MonoBehaviour
         {
             Explode();
         }
+
     }
     void ThrowDynamite()
     {
@@ -62,11 +68,11 @@ public class DynamiteMechanics : MonoBehaviour
         foreach (Collider col in colliders)
         {
             Rigidbody rb = col.GetComponent<Rigidbody>();
-            if (rb != null)
+            if (rb != null) // add force if it's a rigidbody
             {
                 rb.AddExplosionForce(750f, dynObj.transform.position, 10f, 0.1f, ForceMode.Acceleration);
             }
-            else if (col is CharacterController)
+            else if (col is CharacterController) // seperate ExplosionForce for character due to cc restrictions
             {
                 Vector3 explDir = (col.transform.position - dynObj.transform.position);
                 PlayerMovement.ExplosionForce(explDir);
@@ -78,7 +84,6 @@ public class DynamiteMechanics : MonoBehaviour
         countdown = 2;
     }
 
-
     public static void PickedUpAnItem()
     {
         pickedUpGameObject = true;
@@ -87,5 +92,10 @@ public class DynamiteMechanics : MonoBehaviour
     public static void ThrewDownItem()
     {
         pickedUpGameObject = false;
+        PlayerMovement.HandsAreFree();
+    }
+    public static void AddAmmo()
+    {
+        ammo += 3;
     }
 }
