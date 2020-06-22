@@ -19,8 +19,6 @@ public class PlayerMovement : MonoBehaviour
 
     public static Vector3 velocity;
     bool isGrounded;
-    [SerializeField]
-    BoxCollider boxCollider;
 
     public enum Status { LadderClimbing, Walking }
 
@@ -29,16 +27,35 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckForLadder();
+        CheckStatus();
     }
 
-    public void LadderMovement(Collider hitCollider)
+    void CheckStatus()
     {
-        GameObject Ladder = hitCollider.gameObject;
+        if (currentStatus == Status.Walking)
+        {
+            PlayerMove();
+        }
+        else if (currentStatus == Status.LadderClimbing)
+        {
+            LadderMovement();
+        }
+    }
+
+    void CheckForLadder()
+    {
+        if (Physics.OverlapBox(controller.gameObject.transform.position, transform.localScale / 2, Quaternion.identity, LadderMask) != null)
+            currentStatus = Status.LadderClimbing;
+    }
+
+    public void LadderMovement()
+    {
+        Collider[] hitColliders = Physics.OverlapBox(controller.gameObject.transform.position, transform.localScale / 2, Quaternion.identity, LadderMask);
+        GameObject Ladder = hitColliders[0].gameObject;
         GameObject PlayerObject = controller.gameObject;
 
 
-        if (hitCollider.gameObject.transform.lossyScale.y > PlayerObject.transform.position.y)
+        if (Ladder.transform.lossyScale.y > PlayerObject.transform.position.y)
         {
             // Process user input
             float z = Input.GetAxis("Vertical");
@@ -54,33 +71,35 @@ public class PlayerMovement : MonoBehaviour
         currentStatus = Status.Walking;
     }
 
-    public void CheckForLadder()
-    {
-        GameObject PlayerObject = controller.gameObject;
+    //public void CheckForLadder()
+    //{
+    //    GameObject PlayerObject = controller.gameObject;
 
-        Collider[] hitColliders = Physics.OverlapBox(PlayerObject.transform.position, transform.localScale / 2, Quaternion.identity, LadderMask);
+    //    Collider[] hitColliders = Physics.OverlapBox(PlayerObject.transform.position, transform.localScale / 2, Quaternion.identity, LadderMask);
 
-        if (hitColliders.Length > 0 && currentStatus == Status.Walking)
-        {
-            Collider hitCollider = hitColliders[0];
-            currentStatus = Status.LadderClimbing;
-
-
-            LadderMovement(hitCollider);
-
-        }
-       else
-        {
-            PlayerMove();
-        }
-
-        hitColliders = null;
+    //    if (hitColliders.Length > 0 && currentStatus == Status.Walking)
+    //    {
+    //        Collider hitCollider = hitColliders[0];
+    //        currentStatus = Status.LadderClimbing;
 
 
-    }
+    //        LadderMovement(hitCollider);
+
+    //    }
+    //   else
+    //    {
+    //        PlayerMove();
+    //    }
+
+    //    hitColliders = null;
+
+
+    //}
 
     public void PlayerMove()
     {
+        CheckForLadder();
+
         isGrounded = controller.isGrounded;
 
         if (isGrounded && velocity.y < 0)
