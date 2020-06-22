@@ -85,31 +85,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
     }
-
-    //public void CheckForLadder()
-    //{
-    //    GameObject PlayerObject = controller.gameObject;
-
-    //    Collider[] hitColliders = Physics.OverlapBox(PlayerObject.transform.position, transform.localScale / 2, Quaternion.identity, LadderMask);
-
-    //    if (hitColliders.Length > 0 && currentStatus == Status.Walking)
-    //    {
-    //        Collider hitCollider = hitColliders[0];
-    //        currentStatus = Status.LadderClimbing;
-
-
-    //        LadderMovement(hitCollider);
-
-    //    }
-    //   else
-    //    {
-    //        PlayerMove();
-    //    }
-
-    //    hitColliders = null;
-
-
-    //}
+  
 
     public void PlayerMove()
     {
