@@ -58,6 +58,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void LadderMovement()
     {
+
+        // Problem so lange man bei Leiter ist, gibt es Kollisionen...
         Collider[] hitColliders = Physics.OverlapBox(controller.gameObject.transform.position, transform.localScale / 2, Quaternion.identity, LadderMask);
 
         if (hitColliders.Length > 0)
