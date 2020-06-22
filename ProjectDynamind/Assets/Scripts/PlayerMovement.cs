@@ -22,7 +22,11 @@ public class PlayerMovement : MonoBehaviour
 
     public enum Status { LadderClimbing, Walking }
 
+    [SerializeField]
     public Status currentStatus = Status.Walking;
+
+
+
 
     // Update is called once per frame
     void Update()
@@ -44,31 +48,42 @@ public class PlayerMovement : MonoBehaviour
 
     void CheckForLadder()
     {
-        if (Physics.OverlapBox(controller.gameObject.transform.position, transform.localScale / 2, Quaternion.identity, LadderMask) != null)
+        Collider[] hitColliders = Physics.OverlapBox(controller.gameObject.transform.position, transform.localScale / 2, Quaternion.identity, LadderMask);
+
+        if (hitColliders.Length > 0)
             currentStatus = Status.LadderClimbing;
+
+
     }
 
     public void LadderMovement()
     {
         Collider[] hitColliders = Physics.OverlapBox(controller.gameObject.transform.position, transform.localScale / 2, Quaternion.identity, LadderMask);
-        GameObject Ladder = hitColliders[0].gameObject;
-        GameObject PlayerObject = controller.gameObject;
 
-
-        if (Ladder.transform.lossyScale.y > PlayerObject.transform.position.y)
+        if (hitColliders.Length > 0)
         {
-            // Process user input
-            float z = Input.GetAxis("Vertical");
+            GameObject Ladder = hitColliders[0].gameObject;
+            GameObject PlayerObject = controller.gameObject;
 
-            Vector3 move = new Vector3(0, z);
 
-            // Move player
-            controller.Move(move * speed * Time.deltaTime);
+            if (Ladder.transform.localScale.y + Ladder.transform.position.y > PlayerObject.transform.position.y)
+            {
+                // Process user input
+                float z = Input.GetAxis("Vertical");
 
+                Vector3 move = new Vector3(0, z);
+
+                // Move player
+                controller.Move(move * speed * Time.deltaTime);
+
+            }
+            else if (Ladder.transform.position.y + 0.5f <= PlayerObject.transform.position.y && Input.GetKey("s") || Ladder.transform.localScale.y + Ladder.transform.position.y <= PlayerObject.transform.position.y)
+            {
+                currentStatus = Status.Walking;
+                hitColliders = null;
+            }
         }
 
-
-        currentStatus = Status.Walking;
     }
 
     //public void CheckForLadder()
@@ -98,7 +113,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void PlayerMove()
     {
-        CheckForLadder();
+
 
         isGrounded = controller.isGrounded;
 
@@ -126,7 +141,11 @@ public class PlayerMovement : MonoBehaviour
         // fall speed
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+
+        CheckForLadder();
     }
+
+
     public static void ExplosionForce(Vector3 explosionDir)
     {
         velocity = explosionDir;
