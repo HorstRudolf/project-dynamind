@@ -25,17 +25,17 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     public Status currentStatus = Status.Walking;
 
-  
 
- 
+
+
 
     // Update is called once per frame
     void Update()
     {
         CheckStatus();
-        
+
     }
-   
+
 
 
     void CheckStatus()
@@ -57,7 +57,6 @@ public class PlayerMovement : MonoBehaviour
         if (hitColliders.Length > 0)
             currentStatus = Status.LadderClimbing;
 
-
     }
 
     public void LadderMovement()
@@ -74,29 +73,35 @@ public class PlayerMovement : MonoBehaviour
 
             if (Ladder.transform.localScale.y + Ladder.transform.position.y >= PlayerObject.transform.position.y + PlayerObject.transform.localScale.y)
             {
+                PlayerObject.transform.rotation = Ladder.transform.rotation;
                 Debug.Log("Leiter Höhe + Position: " + (Ladder.transform.localScale.y + Ladder.transform.position.y) + " > SpielerPosition: " + (PlayerObject.transform.position.y + PlayerObject.transform.localScale.y));
                 // Process user input
                 float z = Input.GetAxis("Vertical");
 
-                Vector3 move = new Vector3(0, z);
+                Vector3 move1 = new Vector3(0, z);
 
                 // Move player
-                controller.Move(move * speed * Time.deltaTime);
+                controller.Move(move1 * speed * Time.deltaTime);
+                return;
+            }
 
-            }
-            else if (Ladder.transform.localScale.y + Ladder.transform.position.y < PlayerObject.transform.position.y)
-            {
-                Debug.Log("geht rein");
-                Vector3 move = new Vector3(5.0f, 5.0f);
-                // Move player
-                controller.Move(move * speed * Time.deltaTime);
-                currentStatus = Status.Walking;
-                hitColliders = null;
-            }
+            Debug.Log("geht rein");
+            float width = Ladder.transform.localScale.z;
+            //float height = Ladder.transform.localScale.y;
+            PlayerObject.transform.rotation = Quaternion.Euler(0, PlayerObject.transform.rotation.y, 0);
+            PlayerObject.transform.position = new Vector3(PlayerObject.transform.position.x, PlayerObject.transform.position.y + 0.1f, PlayerObject.transform.position.z + width + 0.10f);
+           // Vector3 move = new Vector3(0, 0, width + 0.10f);
+            
+
+            // Move player
+           // controller.Move(move * speed * Time.deltaTime);
+            currentStatus = Status.Walking;
+            hitColliders = null;
+
         }
 
     }
-  
+
 
     public void PlayerMove()
     {
