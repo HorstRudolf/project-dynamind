@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
 
     public CharacterController controller;
     [SerializeField]
-    private LayerMask LadderMask;
+    private LayerMask ladderLayer;
     public float speed = 12f;
     public float gravity = -9.81f;
     public float jumpHeigth = 3f;
@@ -25,14 +25,18 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     public Status currentStatus = Status.Walking;
 
+  
 
-
+ 
 
     // Update is called once per frame
     void Update()
     {
         CheckStatus();
+        
     }
+   
+
 
     void CheckStatus()
     {
@@ -48,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
 
     void CheckForLadder()
     {
-        Collider[] hitColliders = Physics.OverlapBox(controller.gameObject.transform.position, transform.localScale / 2, Quaternion.identity, LadderMask);
+        Collider[] hitColliders = Physics.OverlapBox(controller.gameObject.transform.position, transform.localScale / 2, Quaternion.identity, ladderLayer);
 
         if (hitColliders.Length > 0)
             currentStatus = Status.LadderClimbing;
@@ -60,7 +64,7 @@ public class PlayerMovement : MonoBehaviour
     {
 
         // Problem so lange man bei Leiter ist, gibt es Kollisionen...
-        Collider[] hitColliders = Physics.OverlapBox(controller.gameObject.transform.position, transform.localScale / 2, Quaternion.identity, LadderMask);
+        Collider[] hitColliders = Physics.OverlapBox(controller.gameObject.transform.position, transform.localScale / 2, Quaternion.identity, ladderLayer);
 
         if (hitColliders.Length > 0)
         {
@@ -68,8 +72,9 @@ public class PlayerMovement : MonoBehaviour
             GameObject PlayerObject = controller.gameObject;
 
 
-            if (Ladder.transform.localScale.y + Ladder.transform.position.y > PlayerObject.transform.position.y)
+            if (Ladder.transform.localScale.y + Ladder.transform.position.y >= PlayerObject.transform.position.y + PlayerObject.transform.localScale.y)
             {
+                Debug.Log("Leiter Höhe + Position: " + (Ladder.transform.localScale.y + Ladder.transform.position.y) + " > SpielerPosition: " + (PlayerObject.transform.position.y + PlayerObject.transform.localScale.y));
                 // Process user input
                 float z = Input.GetAxis("Vertical");
 
@@ -79,8 +84,12 @@ public class PlayerMovement : MonoBehaviour
                 controller.Move(move * speed * Time.deltaTime);
 
             }
-            else if (Ladder.transform.position.y + 0.5f <= PlayerObject.transform.position.y && Input.GetKey("s") || Ladder.transform.localScale.y + Ladder.transform.position.y <= PlayerObject.transform.position.y)
+            else if (Ladder.transform.localScale.y + Ladder.transform.position.y < PlayerObject.transform.position.y)
             {
+                Debug.Log("geht rein");
+                Vector3 move = new Vector3(5.0f, 5.0f);
+                // Move player
+                controller.Move(move * speed * Time.deltaTime);
                 currentStatus = Status.Walking;
                 hitColliders = null;
             }
