@@ -6,7 +6,17 @@ ModelImporter:
   - first:
       74: 3552384152302985653
     second: Bridge|BridgeDown
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BridgeBoxMat
+    second: {fileID: 2100000, guid: 1df340253cd98ce47b3b526a4664ec7c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BridgeMat
+    second: {fileID: 2100000, guid: 66ef67b354038e240bd86ef29e7d1c81, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -92,7 +102,7 @@ ModelImporter:
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 1
+  avatarSetup: 0
   additionalBone: 0
   userData: 
   assetBundleName: 
