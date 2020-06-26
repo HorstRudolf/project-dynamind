@@ -31,8 +31,6 @@ public class PlayerMovement : MonoBehaviour
     bool standingUp = true;
     bool falling = false;
     float fallTimer = 0;
-    //float throwCountdown = 0;
-    //bool throwCountdownStarted = false;
 
     PickUp puItem;
 
@@ -46,7 +44,10 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         
-
+        if (Input.GetKey("j"))
+        {
+            hand.transform.GetChild(0).transform.Rotate(new Vector3(5, 0, 0));
+        }
         if (Input.GetKey("c") && !falling && standingUp)
         {
             FallDown();
@@ -144,7 +145,6 @@ public class PlayerMovement : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(posit, out hit, 5f))
         {
-
             // get object that player is currenlty aiming at
             if (hit.collider.GetComponent<Rigidbody>() != null)
             {
@@ -176,8 +176,8 @@ public class PlayerMovement : MonoBehaviour
                     bridgeUp = true;
                 }
                 else if (col.GetComponent<BazookaMechanics>() != null)
-                //else if (hand.transform.childCount == 0 && col.GetComponent<BazookaMechanics>() != null)
                 {
+                    hand.transform.GetChild(0).GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
                     BazookaMechanics bm = col.GetComponent<BazookaMechanics>();
                     player.GetComponent<DynamiteMechanics>().enabled = false;
                     bm.PickUp();
@@ -189,17 +189,20 @@ public class PlayerMovement : MonoBehaviour
                     {
                         hand.transform.DetachChildren();
                     }
+
+                    // restrict and position dynamite into players hand
                     col.transform.SetParent(GameObject.Find("RightHand").transform);
-                    col.transform.GetComponent<Rigidbody>().useGravity = false;
-                    
                     col.transform.GetComponent<CapsuleCollider>().enabled = false;
+                    col.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
                     col.transform.position = hand.transform.position;
-                    col.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
-                    //Dyntest dm = col.GetComponent<Dyntest>();
-                    //dm.PickMeUp();
+                    col.transform.GetComponent<Rigidbody>().useGravity = false;
+                    col.transform.localEulerAngles = new Vector3(-90, 0, 0);
+
+                    // Allow player to use dynamite
                     player.GetComponent<DynamiteMechanics>().enabled = true;
-                    //dm.PickMeUp();
+                    // destroy first dyn object
                     Destroy(GameObject.Find("DynamiteObject"));
+
 
                 }
             }

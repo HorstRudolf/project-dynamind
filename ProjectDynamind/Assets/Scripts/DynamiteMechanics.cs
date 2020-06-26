@@ -53,10 +53,12 @@ public class DynamiteMechanics : MonoBehaviour
     }
     void ThrowDynamite()
     {
+        
         dynObj.transform.SetParent(null); //unchain dyn from player movement
         dynObj.GetComponent<CapsuleCollider>().enabled = true;
 
         Rigidbody rb = dynObj.GetComponent<Rigidbody>();
+        rb.constraints = RigidbodyConstraints.None;
         rb.AddForce(cam.transform.forward * throwForce); // throw item forward (from camera angle)
         rb.useGravity = true;
 

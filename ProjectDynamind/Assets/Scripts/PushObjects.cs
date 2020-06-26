@@ -21,7 +21,11 @@ public class PushObjects : MonoBehaviour
         {
             return;
         }
-
+        // prevent player from being able to push weapons
+        if (hit.transform.name.Contains("Bazooka") || hit.transform.name.Contains("Dynamite"))
+        {
+            return;
+        }
         // Calculate push direction from move direction,
         // we only push objects to the sides never up and down
         Vector3 pushDir = new Vector3(hit.moveDirection.x, 0, hit.moveDirection.z);
