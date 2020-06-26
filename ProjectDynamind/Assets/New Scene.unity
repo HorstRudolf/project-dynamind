@@ -2508,10 +2508,10 @@ GameObject:
   - component: {fileID: 1226993139}
   - component: {fileID: 1226993138}
   - component: {fileID: 1226993137}
-  - component: {fileID: 1226993136}
   - component: {fileID: 1226993135}
   - component: {fileID: 1226993134}
   - component: {fileID: 1226993133}
+  - component: {fileID: 1226993136}
   m_Layer: 8
   m_Name: Cube (4)
   m_TagString: Heavy
@@ -2562,18 +2562,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &1226993136
-BoxCollider:
+--- !u!135 &1226993136
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1226993132}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: e3c7b109297b46047a56c3b1c683e06d, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1226993137
 MeshRenderer:
@@ -2621,7 +2621,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1226993132}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!4 &1226993139
 Transform:
   m_ObjectHideFlags: 0
@@ -3170,10 +3170,10 @@ GameObject:
   - component: {fileID: 1592722447}
   - component: {fileID: 1592722446}
   - component: {fileID: 1592722445}
-  - component: {fileID: 1592722444}
   - component: {fileID: 1592722443}
   - component: {fileID: 1592722442}
   - component: {fileID: 1592722441}
+  - component: {fileID: 1592722444}
   m_Layer: 8
   m_Name: Cube (5)
   m_TagString: Heavy
@@ -3224,18 +3224,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &1592722444
-BoxCollider:
+--- !u!135 &1592722444
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1592722440}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: e3c7b109297b46047a56c3b1c683e06d, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1592722445
 MeshRenderer:
@@ -3283,7 +3283,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1592722440}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!4 &1592722447
 Transform:
   m_ObjectHideFlags: 0
@@ -3594,10 +3594,10 @@ GameObject:
   - component: {fileID: 1919297355}
   - component: {fileID: 1919297354}
   - component: {fileID: 1919297353}
-  - component: {fileID: 1919297352}
   - component: {fileID: 1919297351}
   - component: {fileID: 1919297350}
   - component: {fileID: 1919297349}
+  - component: {fileID: 1919297352}
   m_Layer: 8
   m_Name: Cube (3)
   m_TagString: Heavy
@@ -3648,18 +3648,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &1919297352
-BoxCollider:
+--- !u!135 &1919297352
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1919297348}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: e3c7b109297b46047a56c3b1c683e06d, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1919297353
 MeshRenderer:
@@ -3707,7 +3707,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1919297348}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!4 &1919297355
 Transform:
   m_ObjectHideFlags: 0
