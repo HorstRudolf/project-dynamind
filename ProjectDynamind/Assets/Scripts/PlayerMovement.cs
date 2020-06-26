@@ -28,7 +28,9 @@ public class PlayerMovement : MonoBehaviour
     static bool rangBell = false;
     static bool bridgeUp = false;
 
-
+    bool standingUp = true;
+    bool falling = false;
+    float fallTimer = 0;
     //float throwCountdown = 0;
     //bool throwCountdownStarted = false;
 
@@ -43,55 +45,92 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdateMovementspeed();
+        
 
-        if (Input.GetKey("e"))
+        if (Input.GetKey("c") && !falling && standingUp)
         {
-            TriggerScript();
-
+            FallDown();
+            falling = true;
+            
         }
-
-        isGrounded = controller.isGrounded;
-
-        if (isGrounded && velocity.y < 0)
+        else if (Input.GetKey("v") && !falling && !standingUp)
         {
-            velocity.y = -2f;
-            velocity = new Vector3(0, 0, 0);
+            StandUp();
+            standingUp = true;
         }
-
-        // Process user input
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
-
-        Vector3 move = transform.right * x + transform.forward * z;
-
-        // Move player
-        controller.Move(move * speed * Time.deltaTime * (float)movementSpeedModifier);
-
-
-        if (Input.GetKey(KeyCode.Space) && isGrounded)
+        if (falling)
         {
-            velocity.y = Mathf.Sqrt(jumpHeigth * -2f * gravity);
+            fallTimer++;
+            FallDown();
+            if (fallTimer > 90)
+            {
+                falling = false;
+                fallTimer = 0;
+                standingUp = false;
+            }
         }
+        if (standingUp) 
+        { 
+            UpdateMovementspeed();
+            if (Input.GetKey("e"))
+            {
+                TriggerScript();
 
-        // fall speed
-        velocity.y += gravity * Time.deltaTime;
-        controller.Move(velocity * Time.deltaTime);
+
+            }
+
+            isGrounded = controller.isGrounded;
+
+            if (isGrounded && velocity.y < 0)
+            {
+                velocity.y = -2f;
+                velocity = new Vector3(0, 0, 0);
+            }
+
+            // Process user input
+            float x = Input.GetAxis("Horizontal");
+            float z = Input.GetAxis("Vertical");
+
+            Vector3 move = transform.right * x + transform.forward * z;
+
+            // Move player
+            controller.Move(move * speed * Time.deltaTime * (float)movementSpeedModifier);
+
+
+            if (Input.GetKey(KeyCode.Space) && isGrounded)
+            {
+                velocity.y = Mathf.Sqrt(jumpHeigth * -2f * gravity);
+            }
+
+            // fall speed
+            velocity.y += gravity * Time.deltaTime;
+            controller.Move(velocity * Time.deltaTime);
+        }
+        
     }
 
-    public static void ExplosionForce(Vector3 explosionDir)
+    public static void ExplosionForce(Vector3 explosionDir, String tag)
     {
         velocity = explosionDir;
 
         double distance = Math.Sqrt(Math.Abs(velocity.x * velocity.x + velocity.z * velocity.z)); //calculate distance from Object to Player with pythagoras
+        if (tag == "Dynamite")
+        {
+            distance = (distance < 0.1f) ? 0.1f : (distance > 4f) ? 100f : distance;
+        }
+        else if (tag == "Bazooka")
+        {
+            distance = (distance < 0.1f) ? 0.1f : (distance > 4f) ? 100f : distance;    // keep distance between 0.1 and 4 to avoid flying 
+                                                                                        // unrealistically far when distance is too high
+            distance /= 2;
+        }
+                
 
-        distance = (distance < 0.1f) ? 0.1f : (distance > 4f) ? 100f : distance;    // keep distance between 0.1 and 4 to avoid flying 
-                                                                                    // unrealistically far when distance is too high
         velocity.x += (float)(5 * explosionDir.x / distance);
         velocity.z += (float)(5 * explosionDir.z / distance);
 
         float yScaling = (float)(1 / Math.Abs(distance * 0.2));
-        velocity.y += (yScaling > 5f) ? 5f : (yScaling < 0.5f) ? 0f : yScaling;
+        velocity.y += (yScaling > 10f) ? 10f : (yScaling < 0.5f) ? 0f : yScaling;
 
 
 
@@ -109,6 +148,7 @@ public class PlayerMovement : MonoBehaviour
             // get object that player is currenlty aiming at
             if (hit.collider.GetComponent<Rigidbody>() != null)
             {
+                
                 // and apply its script
                 Rigidbody col = hit.collider.GetComponent<Rigidbody>();
                 if (col.GetComponent<PickUp>() != null && !pickedUpItem)
@@ -134,6 +174,33 @@ public class PlayerMovement : MonoBehaviour
                     BridgeCranck bc = col.GetComponent<BridgeCranck>();
                     bc.CranckIt();
                     bridgeUp = true;
+                }
+                else if (col.GetComponent<BazookaMechanics>() != null)
+                //else if (hand.transform.childCount == 0 && col.GetComponent<BazookaMechanics>() != null)
+                {
+                    BazookaMechanics bm = col.GetComponent<BazookaMechanics>();
+                    player.GetComponent<DynamiteMechanics>().enabled = false;
+                    bm.PickUp();
+                }
+                else if (col.name.Contains("Dynamite"))
+                {
+
+                    if (hand.transform.childCount > 0)
+                    {
+                        hand.transform.DetachChildren();
+                    }
+                    col.transform.SetParent(GameObject.Find("RightHand").transform);
+                    col.transform.GetComponent<Rigidbody>().useGravity = false;
+                    
+                    col.transform.GetComponent<CapsuleCollider>().enabled = false;
+                    col.transform.position = hand.transform.position;
+                    col.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+                    //Dyntest dm = col.GetComponent<Dyntest>();
+                    //dm.PickMeUp();
+                    player.GetComponent<DynamiteMechanics>().enabled = true;
+                    //dm.PickMeUp();
+                    Destroy(GameObject.Find("DynamiteObject"));
+
                 }
             }
         }
@@ -170,6 +237,16 @@ public class PlayerMovement : MonoBehaviour
         }
         movementSpeedModifier = (double)moveSpeedModGt * moveSpeedModOj;
 
+    }
+
+    public void FallDown()
+    {
+        controller.transform.Rotate(new Vector3(0.5f, 0.5f, 1));
+        
+    }
+    public void StandUp()
+    {
+        controller.transform.eulerAngles = new Vector3(0, 0, 0);
     }
 
     public static void UpdateReload()
