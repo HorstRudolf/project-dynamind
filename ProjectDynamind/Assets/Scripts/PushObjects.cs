@@ -10,8 +10,8 @@ public class PushObjects : MonoBehaviour
 
         Rigidbody body = hit.collider.attachedRigidbody;
      
-        // no rigidbody
-        if (body == null || body.isKinematic)
+        // no rigidbody or body == weapontype
+        if (body == null || body.isKinematic || hit.transform.name.Contains("Dynamite") || hit.transform.name.Contains("Bazooka"))
         {
             return;
         }
@@ -21,6 +21,8 @@ public class PushObjects : MonoBehaviour
         {
             return;
         }
+
+        
 
         // Calculate push direction from move direction,
         // we only push objects to the sides never up and down
