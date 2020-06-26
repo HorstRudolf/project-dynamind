@@ -67,6 +67,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reachForAction: 4
+  triggerName: 
   bridge: {fileID: 0}
   lever: {fileID: 6466513678199032474}
   tagOfObject: Player
@@ -89,18 +90,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &827199716
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7309643000574600707}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3696f14bf26d7d74197d55aae51b9d01, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1608062705907023626
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -181,7 +170,7 @@ PrefabInstance:
     - target: {fileID: -927199367670048503, guid: 9b10027a42a6e084e8c214842e90cc3e,
         type: 3}
       propertyPath: m_Name
-      value: lever
+      value: lever Variant
       objectReference: {fileID: 0}
     - target: {fileID: 2666251546469391178, guid: 9b10027a42a6e084e8c214842e90cc3e,
         type: 3}

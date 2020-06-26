@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class interaction : MonoBehaviour
+public class LeverInteraction : MonoBehaviour
 {
     public float reachForAction = 4.0f;
     public string triggerName;
