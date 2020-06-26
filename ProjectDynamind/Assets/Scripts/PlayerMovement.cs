@@ -36,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
     PickUp puItem;
 
     // create possible objects to modify player speed
-    enum GroundType { Floor = 1, SmallAngle = 2, MediumAngle = 3, BigAngle = 4, Untagged = 1, Light = 1, Medium = 1, Heavy = 1, DeathZone = 1 }
+    enum GroundType { Floor = 1, SmallAngle = 2, MediumAngle = 3, BigAngle = 4}
     public enum ObjectType { None = 1, Light = 2, Medium = 3, Heavy = 4, Untagged = 1 }
     public double movementSpeedModifier = 1;
 
@@ -226,10 +226,10 @@ public class PlayerMovement : MonoBehaviour
         foreach (Collider c in col)
         {
 
-            if (c.tag != "Player") // check for objects that collide, that are not our player
-            {
-                GroundType gt = (GroundType)System.Enum.Parse(typeof(GroundType), c.tag);       // get 'weight' of item
-                moveSpeedModGt = (double)1 / (1 + 0.75 * ((int)gt - 1));                        // and adjust movespeed based on that
+            if (c.tag.Contains("Angle")) // check for floor that player stands on
+            {                                    
+                GroundType gt = (GroundType)System.Enum.Parse(typeof(GroundType), c.tag);   // get 'angle' of floor
+                moveSpeedModGt = (double)1 / (1 + 0.75 * ((int)gt - 1));            // and adjust movespeed based on that                  
             }
         }
         movementSpeedModifier = (double)moveSpeedModGt * moveSpeedModOj;
