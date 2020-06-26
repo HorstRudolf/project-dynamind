@@ -31,8 +31,7 @@ public class PlayerMovement : MonoBehaviour
     bool standingUp = true;
     bool falling = false;
     float fallTimer = 0;
-    //float throwCountdown = 0;
-    //bool throwCountdownStarted = false;
+
 
     PickUp puItem;
 
@@ -189,16 +188,14 @@ public class PlayerMovement : MonoBehaviour
                     {
                         hand.transform.DetachChildren();
                     }
+                    //restrict gravity and position object into players hands
                     col.transform.SetParent(GameObject.Find("RightHand").transform);
-                    col.transform.GetComponent<Rigidbody>().useGravity = false;
-                    
+                    col.transform.GetComponent<Rigidbody>().useGravity = false; 
                     col.transform.GetComponent<CapsuleCollider>().enabled = false;
                     col.transform.position = hand.transform.position;
-                    col.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
-                    //Dyntest dm = col.GetComponent<Dyntest>();
-                    //dm.PickMeUp();
+                    col.transform.localEulerAngles = new Vector3(-90, 0, 0);
                     player.GetComponent<DynamiteMechanics>().enabled = true;
-                    //dm.PickMeUp();
+
                     Destroy(GameObject.Find("DynamiteObject"));
 
                 }
