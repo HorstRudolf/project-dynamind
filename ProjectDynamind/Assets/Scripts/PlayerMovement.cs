@@ -35,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
     PickUp puItem;
 
     // create possible objects to modify player speed
-    enum GroundType { Floor = 1, SmallAngle = 2, MediumAngle = 3, BigAngle = 4, Untagged = 1, Light = 1, Medium = 1, Heavy = 1, DeathZone = 1 }
+    enum GroundType { Floor = 1, SmallAngle = 2, MediumAngle = 3, BigAngle = 4, Untagged = 1, Light = 1, Medium = 1, Heavy = 1, DeathZone = 1, DestructionZone = 1 }
     public enum ObjectType { None = 1, Light = 2, Medium = 3, Heavy = 4, Untagged = 1 }
     public double movementSpeedModifier = 1;
 
