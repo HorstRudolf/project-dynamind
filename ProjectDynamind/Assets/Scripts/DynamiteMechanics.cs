@@ -22,16 +22,20 @@ public class DynamiteMechanics : MonoBehaviour
 
     static int ammo = 2;
 
-    
+
 
 
     void Update()
     {
-        ui.text =  ammo + "" ;
+        ui.text = ammo + "";
         if (GameObject.Find("DynamiteObject(Clone)") == null && countdown <= 0 && !pickedUpGameObject && ammo > 0) // create one object when none exist
         {
+            dynSpawnee.GetComponent<Rigidbody>().useGravity = false;
             dynObj = Instantiate(dynSpawnee, spawnPos);
             dynObj.GetComponent<CapsuleCollider>().enabled = false;
+            dynObj.GetComponent<Rigidbody>().useGravity = false;
+
+
         }
         else if (Input.GetMouseButtonDown(1) && GameObject.Find("DynamiteObject(Clone)") != null && !thrown) // when obj exists and we press 'throw'-button it throws
         {
@@ -75,15 +79,46 @@ public class DynamiteMechanics : MonoBehaviour
             else if (col is CharacterController) // seperate ExplosionForce for character due to cc restrictions
             {
                 Vector3 explDir = (col.transform.position - dynObj.transform.position);
-                PlayerMovement.ExplosionForce(explDir);
+                PlayerMovement.ExplosionForce(explDir, "Dynamite");
             }
         }
-
+        dynObj.GetComponent<Rigidbody>().useGravity = false;
         Destroy(dynObj);
         thrown = false;
         countdown = 2;
     }
+    public void PickMeUp()
+    {
+        if (spawnPos.transform.childCount == 0)
+        {
+            GameObject dynInstance = Instantiate(dynObj);
+            dynInstance.GetComponent<CapsuleCollider>().enabled = false;
+            dynInstance.GetComponent<Rigidbody>().useGravity = false;
+            dynInstance.transform.SetParent(spawnPos);
+            dynInstance.transform.position = spawnPos.position;
+            dynInstance.transform.rotation = spawnPos.rotation;
+            Destroy(dynObj);
 
+        }
+        else
+        {
+            if (!spawnPos.transform.GetChild(0).name.Contains("DynamiteObject"))
+            {
+                spawnPos.transform.GetChild(0).GetComponent<Rigidbody>().useGravity = true;
+                spawnPos.transform.GetChild(0).GetComponent<CapsuleCollider>().enabled = true;
+                spawnPos.transform.DetachChildren();
+                GameObject dynInstance = Instantiate(dynObj);
+                dynInstance.GetComponent<CapsuleCollider>().enabled = false;
+                dynInstance.GetComponent<Rigidbody>().useGravity = false;
+                dynInstance.transform.SetParent(spawnPos);
+                dynInstance.transform.position = spawnPos.position;
+                dynInstance.transform.rotation = spawnPos.rotation;
+                Destroy(dynObj);
+
+            }
+
+        }
+    }
     public static void PickedUpAnItem()
     {
         pickedUpGameObject = true;

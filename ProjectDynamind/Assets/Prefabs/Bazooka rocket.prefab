@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7688842674483074326
+--- !u!1 &5862579990730014132
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,47 +8,48 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6696598058324158213}
-  - component: {fileID: 2428599956877368627}
-  - component: {fileID: 8253013032486019530}
-  - component: {fileID: 4037371711446479016}
-  - component: {fileID: 4166369335019326000}
+  - component: {fileID: 7423982398633709479}
+  - component: {fileID: 1899479004870587793}
+  - component: {fileID: 5287445297978689896}
+  - component: {fileID: 3904451930368697202}
+  - component: {fileID: 7208173978798161189}
+  - component: {fileID: -6573221268342488412}
   m_Layer: 0
-  m_Name: DynamiteObject
+  m_Name: Bazooka rocket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6696598058324158213
+--- !u!4 &7423982398633709479
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7688842674483074326}
-  m_LocalRotation: {x: -0.7069834, y: 0, z: 0, w: 0.7072302}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_GameObject: {fileID: 5862579990730014132}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalScale: {x: 5.000001, y: 5.000001, z: 5.000001}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -89.98, y: 0, z: 0}
---- !u!33 &2428599956877368627
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &1899479004870587793
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7688842674483074326}
-  m_Mesh: {fileID: -1801400722603231261, guid: 036980489b671cd488dec0cddc6893e7, type: 3}
---- !u!23 &8253013032486019530
+  m_GameObject: {fileID: 5862579990730014132}
+  m_Mesh: {fileID: -1721106302929804235, guid: ae15aed350e5fa543bb2ab740ed58001, type: 3}
+--- !u!23 &5287445297978689896
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7688842674483074326}
+  m_GameObject: {fileID: 5862579990730014132}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -60,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 284e3a0605189064db09009904c67af9, type: 2}
+  - {fileID: 5416459184716706958, guid: ae15aed350e5fa543bb2ab740ed58001, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -81,13 +82,13 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!54 &4037371711446479016
+--- !u!54 &3904451930368697202
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7688842674483074326}
+  m_GameObject: {fileID: 5862579990730014132}
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
@@ -97,17 +98,30 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!136 &4166369335019326000
+--- !u!136 &7208173978798161189
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7688842674483074326}
+  m_GameObject: {fileID: 5862579990730014132}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.03
-  m_Height: 0.3
+  m_Radius: 0.007
+  m_Height: 0.070664
   m_Direction: 2
-  m_Center: {x: 0.0000000018626451, y: -0.000000011175869, z: 0}
+  m_Center: {x: 0.00000003306195, y: 0.0028275535, z: -0.012717235}
+--- !u!114 &-6573221268342488412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5862579990730014132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 614501d577cca464dbae36b74020aadc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rocket: {fileID: 5862579990730014132}
