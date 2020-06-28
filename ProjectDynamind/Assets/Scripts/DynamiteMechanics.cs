@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class DynamiteMechanics : MonoBehaviour
@@ -27,6 +28,7 @@ public class DynamiteMechanics : MonoBehaviour
 
     void Update()
     {
+
         ui.text = ammo + "";
         if (GameObject.Find("DynamiteObject(Clone)") == null && countdown <= 0 && !pickedUpGameObject && ammo > 0) // create one object when none exist
         {
@@ -50,9 +52,12 @@ public class DynamiteMechanics : MonoBehaviour
             Explode();
         }
 
+
+
     }
     void ThrowDynamite()
     {
+        dynObj.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
         dynObj.transform.SetParent(null); //unchain dyn from player movement
         dynObj.GetComponent<CapsuleCollider>().enabled = true;
 
@@ -132,5 +137,12 @@ public class DynamiteMechanics : MonoBehaviour
     public static void AddAmmo()
     {
         ammo += 3;
+    }
+    public void DisableRestrictions()
+    {
+        dynObj.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+        dynObj.GetComponent<Rigidbody>().useGravity = true;
+        dynObj.GetComponent<CapsuleCollider>().enabled = true;
+        ui.text = "";
     }
 }

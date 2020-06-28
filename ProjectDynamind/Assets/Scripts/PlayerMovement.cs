@@ -178,6 +178,8 @@ public class PlayerMovement : MonoBehaviour
                 //else if (hand.transform.childCount == 0 && col.GetComponent<BazookaMechanics>() != null)
                 {
                     BazookaMechanics bm = col.GetComponent<BazookaMechanics>();
+                    DynamiteMechanics dm = player.GetComponent<DynamiteMechanics>();
+                    dm.DisableRestrictions();                    
                     player.GetComponent<DynamiteMechanics>().enabled = false;
                     bm.PickUp();
                 }
@@ -189,15 +191,24 @@ public class PlayerMovement : MonoBehaviour
                         hand.transform.DetachChildren();
                     }
                     //restrict gravity and position object into players hands
-                    col.transform.SetParent(GameObject.Find("RightHand").transform);
-                    col.transform.GetComponent<Rigidbody>().useGravity = false; 
                     col.transform.GetComponent<CapsuleCollider>().enabled = false;
+                    col.transform.SetParent(GameObject.Find("RightHand").transform);
+                    col.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+                    col.transform.GetComponent<Rigidbody>().useGravity = false;                    
                     col.transform.position = hand.transform.position;
                     col.transform.localEulerAngles = new Vector3(-90, 0, 0);
                     player.GetComponent<DynamiteMechanics>().enabled = true;
 
                     Destroy(GameObject.Find("DynamiteObject"));
 
+                }
+                else if(col.GetComponent<GrenadeLauncher>() != null)
+                {
+                    GrenadeLauncher gl = col.GetComponent<GrenadeLauncher>();
+                    DynamiteMechanics dm = player.GetComponent<DynamiteMechanics>();
+                    dm.DisableRestrictions();
+                    player.GetComponent<DynamiteMechanics>().enabled = false;
+                    gl.PickUp();
                 }
             }
         }
