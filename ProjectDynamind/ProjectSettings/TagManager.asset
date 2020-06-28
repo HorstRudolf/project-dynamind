@@ -12,6 +12,7 @@ TagManager:
   - Light
   - MediumAngle
   - BigAngle
+  - Ladder
   layers:
   - Default
   - TransparentFX
