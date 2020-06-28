@@ -40,17 +40,94 @@ public class PlayerMovement : MonoBehaviour
     public enum ObjectType { None = 1, Light = 2, Medium = 3, Heavy = 4, Untagged = 1 }
     public double movementSpeedModifier = 1;
 
+    public enum Status { LadderClimbing, Walking }
+    [SerializeField]
+    public Status currentStatus = Status.Walking;
+
+    Transform playerTransform;
+
+    Vector3 position;
 
     // Update is called once per frame
     void Update()
     {
-        
 
+        CheckStatus();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Ladder")
+        {
+            currentStatus = Status.LadderClimbing;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Ladder")
+        {
+            currentStatus = Status.Walking;
+        }
+    }
+
+    public void LadderMovement()
+    {
+        playerTransform = player.transform;
+
+        if (Input.GetKey("w"))
+        {
+            float z = Input.GetAxis("Vertical");
+            Vector3 move = transform.up * z;
+
+            // Move player
+            controller.Move(move * speed * Time.deltaTime);
+        }
+        else if (Input.GetKey("s"))
+        {
+            float z = Input.GetAxis("Vertical");
+            Vector3 move = transform.up * z;
+
+            // Move player
+            controller.Move(move * speed * Time.deltaTime);
+
+            if (playerTransform.gameObject.transform.position.y == position.y)
+            {
+                currentStatus = Status.Walking;
+            }
+        }
+        else if (Input.GetKey(KeyCode.Space))
+        {
+
+            velocity.y = Mathf.Sqrt(jumpHeigth * -2f * gravity);
+            velocity.z = -3;
+            velocity.x = -3;
+            // fall speed
+            velocity.y += gravity * Time.deltaTime;
+            controller.Move(velocity * Time.deltaTime);
+        }
+        position = new Vector3(0, playerTransform.gameObject.transform.position.y, 0);
+    }
+
+    void CheckStatus()
+    {
+        if (currentStatus == Status.Walking)
+        {
+            PlayerMove();
+        }
+        else if (currentStatus == Status.LadderClimbing)
+        {
+            LadderMovement();
+        }
+    }
+
+    public void PlayerMove()
+    {
         if (Input.GetKey("c") && !falling && standingUp)
         {
             FallDown();
             falling = true;
-            
+
         }
         else if (Input.GetKey("v") && !falling && !standingUp)
         {
@@ -68,8 +145,8 @@ public class PlayerMovement : MonoBehaviour
                 standingUp = false;
             }
         }
-        if (standingUp) 
-        { 
+        if (standingUp)
+        {
             UpdateMovementspeed();
             if (Input.GetKey("e"))
             {
@@ -105,7 +182,6 @@ public class PlayerMovement : MonoBehaviour
             velocity.y += gravity * Time.deltaTime;
             controller.Move(velocity * Time.deltaTime);
         }
-        
     }
 
     public static void ExplosionForce(Vector3 explosionDir, String tag)
