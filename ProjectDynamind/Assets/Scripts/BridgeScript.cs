@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
+
 public class BridgeScript : MonoBehaviour
 {
     public GameObject bridgeObject;

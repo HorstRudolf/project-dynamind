@@ -71,6 +71,19 @@ MonoBehaviour:
   bridge: {fileID: 0}
   lever: {fileID: 6466513678199032474}
   tagOfObject: Player
+--- !u!65 &5346311839282729021
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7309643000574600707}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.11012745, y: 0.6497532, z: 0.3014307}
+  m_Center: {x: 0.00217247, y: 0.26729852, z: -0.00014019012}
 --- !u!95 &827199715
 Animator:
   serializedVersion: 3
