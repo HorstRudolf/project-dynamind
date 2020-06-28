@@ -11,7 +11,7 @@ public class PushObjects : MonoBehaviour
         Rigidbody body = hit.collider.attachedRigidbody;
      
         // no rigidbody or body == weapontype
-        if (body == null || body.isKinematic || hit.transform.name.Contains("Dynamite") || hit.transform.name.Contains("Bazooka"))
+        if (body == null || body.isKinematic || hit.transform.name.Contains("Dynamite") || hit.transform.name.Contains("Bazooka") || hit.transform.name.Contains("Grenade"))
         {
             return;
         }
