@@ -29,7 +29,7 @@ public class DynamiteMechanics : MonoBehaviour
     void Update()
     {
 
-        ui.text = ammo + "";
+        //ui.text = ammo + "";
         if (GameObject.Find("DynamiteObject(Clone)") == null && countdown <= 0 && !pickedUpGameObject && ammo > 0) // create one object when none exist
         {
             dynSpawnee.GetComponent<Rigidbody>().useGravity = false;
@@ -51,9 +51,6 @@ public class DynamiteMechanics : MonoBehaviour
         {
             Explode();
         }
-
-
-
     }
     void ThrowDynamite()
     {

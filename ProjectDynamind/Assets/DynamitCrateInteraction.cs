@@ -15,12 +15,8 @@ public class DynamitCrateInteraction : MonoBehaviour
         player = GameObject.FindGameObjectWithTag(tagOfObject);
     }
 
-    // Update is called once per frame
-    private void OnMouseOver()
+    public void EquipDynamite()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0) && Vector3.Distance(player.transform.position, gameObject.transform.position) < reachForAction)
-        {
-            //TODO: Dynamit counter ehöhen
-        }
+        player.GetComponent<DynamiteMechanics>().enabled = true;
     }
 }
