@@ -31,7 +31,6 @@ public class MouseLook : MonoBehaviour
 
         CheckStatus();
 
-        Debug.Log(currentStatus);
 
     }
 
