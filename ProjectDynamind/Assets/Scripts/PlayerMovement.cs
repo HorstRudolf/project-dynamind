@@ -36,13 +36,13 @@ public class PlayerMovement : MonoBehaviour
     PickUp puItem;
 
     // create possible objects to modify player speed
-    enum GroundType { Floor = 1, SmallAngle = 2, MediumAngle = 3, BigAngle = 4}
+    enum GroundType { Floor = 1, SmallAngle = 2, MediumAngle = 3, BigAngle = 4 }
     public enum ObjectType { None = 1, Light = 2, Medium = 3, Heavy = 4, Untagged = 1 }
     public double movementSpeedModifier = 1;
 
     public enum Status { LadderClimbing, Walking }
-    [SerializeField]
-    public Status currentStatus = Status.Walking;
+
+    public static Status currentStatus = Status.Walking;
 
     Transform playerTransform;
 
@@ -199,7 +199,7 @@ public class PlayerMovement : MonoBehaviour
                                                                                         // unrealistically far when distance is too high
             distance /= 2;
         }
-                
+
 
         velocity.x += (float)(5 * explosionDir.x / distance);
         velocity.z += (float)(5 * explosionDir.z / distance);
@@ -213,7 +213,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void TriggerScript()
     {
-        
+
         Ray posit = cam.ScreenPointToRay(Input.mousePosition);
 
         RaycastHit hit;
@@ -223,7 +223,7 @@ public class PlayerMovement : MonoBehaviour
             // get object that player is currenlty aiming at
             if (hit.collider.GetComponent<Rigidbody>() != null)
             {
-                
+
                 // and apply its script
                 Rigidbody col = hit.collider.GetComponent<Rigidbody>();
                 if (col.GetComponent<PickUp>() != null && !pickedUpItem)
@@ -255,7 +255,7 @@ public class PlayerMovement : MonoBehaviour
                 {
                     BazookaMechanics bm = col.GetComponent<BazookaMechanics>();
                     DynamiteMechanics dm = player.GetComponent<DynamiteMechanics>();
-                    dm.DisableRestrictions();                    
+                    dm.DisableRestrictions();
                     player.GetComponent<DynamiteMechanics>().enabled = false;
                     bm.PickUp();
                 }
@@ -270,7 +270,7 @@ public class PlayerMovement : MonoBehaviour
                     col.transform.GetComponent<CapsuleCollider>().enabled = false;
                     col.transform.SetParent(GameObject.Find("RightHand").transform);
                     col.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-                    col.transform.GetComponent<Rigidbody>().useGravity = false;                    
+                    col.transform.GetComponent<Rigidbody>().useGravity = false;
                     col.transform.position = hand.transform.position;
                     col.transform.localEulerAngles = new Vector3(-90, 0, 0);
                     player.GetComponent<DynamiteMechanics>().enabled = true;
@@ -278,7 +278,7 @@ public class PlayerMovement : MonoBehaviour
                     Destroy(GameObject.Find("DynamiteObject"));
 
                 }
-                else if(col.GetComponent<GrenadeLauncher>() != null)
+                else if (col.GetComponent<GrenadeLauncher>() != null)
                 {
                     GrenadeLauncher gl = col.GetComponent<GrenadeLauncher>();
                     DynamiteMechanics dm = player.GetComponent<DynamiteMechanics>();
@@ -314,7 +314,7 @@ public class PlayerMovement : MonoBehaviour
         {
 
             if (c.tag.Contains("Angle")) // check for floor that player stands on
-            {                                    
+            {
                 GroundType gt = (GroundType)System.Enum.Parse(typeof(GroundType), c.tag);   // get 'angle' of floor
                 moveSpeedModGt = (double)1 / (1 + 0.75 * ((int)gt - 1));            // and adjust movespeed based on that                  
             }
@@ -326,7 +326,7 @@ public class PlayerMovement : MonoBehaviour
     public void FallDown()
     {
         controller.transform.Rotate(new Vector3(0.5f, 0.5f, 1));
-        
+
     }
     public void StandUp()
     {
