@@ -27,8 +27,11 @@ public class MouseLook : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        currentStatus = PlayerMovement.currentStatus;
 
         CheckStatus();
+
+        Debug.Log(currentStatus);
 
     }
 
