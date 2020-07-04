@@ -5,6 +5,7 @@ using System.ComponentModel.Design;
 using System.Runtime.Remoting.Activation;
 using Unity.Collections;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.SocialPlatforms;
 using UnityEngine.Windows.Speech;
 
@@ -80,6 +81,14 @@ public class PlayerMovement : MonoBehaviour
         Vector3 ladderRotation = new Vector3(col.gameObject.transform.rotation.x, col.gameObject.transform.rotation.y, col.gameObject.transform.rotation.z);
 
         player.transform.rotation = Quaternion.Euler(ladderRotation);
+
+    }
+
+    void SetPlayerPositionToDefault(Collider col)
+    {
+        Vector3 playerRotation = new Vector3(0f, player.transform.rotation.y, 0f);
+
+        player.transform.rotation = Quaternion.Euler(playerRotation);
 
     }
 
