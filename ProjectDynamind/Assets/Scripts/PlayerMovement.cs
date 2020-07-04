@@ -59,6 +59,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.gameObject.tag == "Ladder")
         {
+            SetPlayerPositionToLaderPosition(other);
+
             currentStatus = Status.LadderClimbing;
         }
     }
@@ -69,6 +71,16 @@ public class PlayerMovement : MonoBehaviour
         {
             currentStatus = Status.Walking;
         }
+    }
+
+    void SetPlayerPositionToLaderPosition(Collider col)
+    {
+        player.transform.position = new Vector3(col.gameObject.transform.position.x, player.transform.position.y, player.transform.position.z);
+
+        Vector3 ladderRotation = new Vector3(col.gameObject.transform.rotation.x, col.gameObject.transform.rotation.y, col.gameObject.transform.rotation.z);
+
+        player.transform.rotation = Quaternion.Euler(ladderRotation);
+
     }
 
     public void LadderMovement()
