@@ -6,12 +6,10 @@ public class PlayerVitals : MonoBehaviour
 {
 
     public int maxStamina;
-    public float stamina;
+    private float stamina;
 
-    public int staminaFallMult;
     private int staminaFallRate;
 
-    public int staminaRegainMult;
     private int staminaRegainRate;
 
     private PlayerMovement.Status currentStatus;
