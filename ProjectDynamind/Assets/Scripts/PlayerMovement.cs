@@ -313,11 +313,11 @@ public class PlayerMovement : MonoBehaviour
 
         if (hand.transform.childCount > 0) // check to see if player is currently holding an item
         {
-            Transform objInHand = hand.transform.GetChild(0);
-            ObjectType oj = (ObjectType)System.Enum.Parse(typeof(ObjectType), objInHand.tag);
-            if ((int)oj <= 3)            // if item is 'medium' or lighter we can move while holding it
+            Rigidbody rb = hand.transform.GetChild(0).GetComponent<Rigidbody>();
+            float mass = rb.mass;
+            if (mass <= 3)            // if item is 'medium' or lighter we can move while holding it
             {
-                moveSpeedModOj = (double)1 / (1 + 0.5 * ((int)oj - 1));
+                moveSpeedModOj = 1 / (1 + 0.5 * (mass - 1));
             }
             else // else we can't move
             {
