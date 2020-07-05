@@ -121,12 +121,8 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (Input.GetKey(KeyCode.Space))
         {
-
-
-
             Debug.Log(player.transform.forward);
             controller.Move(player.transform.forward * -jumpHeigth * 2 * Time.deltaTime);
-
         }
         position = new Vector3(0, playerTransform.gameObject.transform.position.y, 0);
     }
