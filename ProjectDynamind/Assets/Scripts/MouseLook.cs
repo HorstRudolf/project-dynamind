@@ -71,7 +71,7 @@ public class MouseLook : MonoBehaviour
 
     void CheckStatus()
     {
-        if (currentStatus == PlayerMovement.Status.Walking)
+        if (currentStatus == PlayerMovement.Status.Walking || currentStatus == PlayerMovement.Status.Exhausted || currentStatus == PlayerMovement.Status.Sprinting)
         {
             NormalMouseLook();
         }
