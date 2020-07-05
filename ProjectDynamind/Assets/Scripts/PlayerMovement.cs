@@ -70,6 +70,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.gameObject.tag == "Ladder")
         {
+            SetPlayerPositionToDefault(other);
+
             currentStatus = Status.Walking;
         }
     }
@@ -120,12 +122,11 @@ public class PlayerMovement : MonoBehaviour
         else if (Input.GetKey(KeyCode.Space))
         {
 
-            velocity.y = Mathf.Sqrt(jumpHeigth * -2f * gravity);
-            velocity.z = -3;
-            velocity.x = -3;
-            // fall speed
-            velocity.y += gravity * Time.deltaTime;
-            controller.Move(velocity * Time.deltaTime);
+
+
+            Debug.Log(player.transform.forward);
+            controller.Move(player.transform.forward * -jumpHeigth * 2 * Time.deltaTime);
+
         }
         position = new Vector3(0, playerTransform.gameObject.transform.position.y, 0);
     }
