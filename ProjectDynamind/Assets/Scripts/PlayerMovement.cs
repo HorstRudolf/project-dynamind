@@ -41,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
     public enum ObjectType { None = 1, Light = 2, Medium = 3, Heavy = 4, Untagged = 1 }
     public double movementSpeedModifier = 1;
 
-    public enum Status { LadderClimbing, Walking }
+    public enum Status { LadderClimbing, Walking, Exhausted, Sprinting }
 
     public static Status currentStatus = Status.Walking;
 
@@ -121,7 +121,6 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (Input.GetKey(KeyCode.Space))
         {
-            Debug.Log(player.transform.forward);
             controller.Move(player.transform.forward * -jumpHeigth * 2 * Time.deltaTime);
         }
         position = new Vector3(0, playerTransform.gameObject.transform.position.y, 0);
@@ -129,18 +128,94 @@ public class PlayerMovement : MonoBehaviour
 
     void CheckStatus()
     {
-        if (currentStatus == Status.Walking)
+        if (currentStatus == Status.Walking || currentStatus == Status.Sprinting)
         {
-            PlayerMove();
+            if (Input.GetKey(KeyCode.LeftShift))
+            {                
+                SprintingMovement();
+            }
+            else
+            {
+                PlayerMove();
+            }
+            
         }
         else if (currentStatus == Status.LadderClimbing)
         {
             LadderMovement();
         }
+        else if (currentStatus == Status.Exhausted)
+        {
+            ExhaustedMove();
+        }
+    }
+
+    public void SprintingMovement()
+    {
+        currentStatus = Status.Sprinting;
+
+        isGrounded = controller.isGrounded;
+
+        if (isGrounded && velocity.y < 0)
+        {
+            velocity.y = -2f;
+            velocity = new Vector3(0, 0, 0);
+        }
+
+        // Process user input
+        float x = Input.GetAxis("Horizontal");
+        float z = Input.GetAxis("Vertical");
+
+        Vector3 move = transform.right * x + transform.forward * z;
+
+        // Move player
+        controller.Move(move * speed * 1.7f * Time.deltaTime * (float)movementSpeedModifier);
+
+
+        if (Input.GetKey(KeyCode.Space) && isGrounded)
+        {
+            velocity.y = Mathf.Sqrt(jumpHeigth * -2f * gravity);
+        }
+
+        // fall speed
+        velocity.y += gravity * Time.deltaTime;
+        controller.Move(velocity * Time.deltaTime);
+    }
+
+    public void ExhaustedMove()
+    {
+        isGrounded = controller.isGrounded;
+
+        if (isGrounded && velocity.y < 0)
+        {
+            velocity.y = -2f;
+            velocity = new Vector3(0, 0, 0);
+        }
+
+        // Process user input
+        float x = Input.GetAxis("Horizontal");
+        float z = Input.GetAxis("Vertical");
+
+        Vector3 move = transform.right * x + transform.forward * z;
+
+        // Move player
+        controller.Move(move * speed / 2 * Time.deltaTime * (float)movementSpeedModifier);
+
+
+        if (Input.GetKey(KeyCode.Space) && isGrounded)
+        {
+            velocity.y = Mathf.Sqrt(jumpHeigth * -2f * gravity);
+        }
+
+        // fall speed
+        velocity.y += gravity * Time.deltaTime;
+        controller.Move(velocity * Time.deltaTime);
     }
 
     public void PlayerMove()
     {
+        currentStatus = Status.Walking;
+
         if (Input.GetKey("c") && !falling && standingUp)
         {
             FallDown();
