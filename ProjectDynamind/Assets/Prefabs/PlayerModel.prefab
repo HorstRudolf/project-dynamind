@@ -6260,6 +6260,7 @@ GameObject:
   - component: {fileID: 3516154658007416257}
   - component: {fileID: 3516154658007416261}
   - component: {fileID: 2067157965275324589}
+  - component: {fileID: 3199610916740657322}
   m_Layer: 0
   m_Name: PlayerModel
   m_TagString: Player
@@ -6370,6 +6371,20 @@ MonoBehaviour:
   countdown: 0
   throwForce: 400
   thrown: 0
+--- !u!114 &3199610916740657322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4893733969663540406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4636e1213b14c54ba2477d0d26369be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxStamina: 5
+  countdown: 3
 --- !u!1 &4904589546104345648
 GameObject:
   m_ObjectHideFlags: 0
