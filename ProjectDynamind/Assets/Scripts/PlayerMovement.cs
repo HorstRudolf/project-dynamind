@@ -5,6 +5,7 @@ using System.ComponentModel.Design;
 using System.Runtime.Remoting.Activation;
 using Unity.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Rendering;
 using UnityEngine.SocialPlatforms;
 using UnityEngine.Windows.Speech;
@@ -33,6 +34,12 @@ public class PlayerMovement : MonoBehaviour
     bool falling = false;
     float fallTimer = 0;
 
+    public Text lifeUI;
+    int life = 100;
+    bool takenDamageRecently = false;
+    float timeSinceTakenDamage = 0;
+    float timeSinceRegenLife = 0;
+    float timeSinceStandingOnDamageGround = 0;
 
     PickUp puItem;
 
@@ -52,7 +59,32 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        lifeUI.text = life + "";
+        if (life <= 0) //add "respawn" functionality (go to last checkpoint I guess?)
+        {
+            Respawn();
+           
+        }
+        if (Input.GetKey("j"))
+        {
+            TakeDamage(5);
+        }
+        if (takenDamageRecently)
+        {
+            timeSinceTakenDamage += Time.deltaTime;
+            timeSinceRegenLife += Time.deltaTime;
+            if (timeSinceRegenLife >= 0.5 & timeSinceTakenDamage >= 5)
+            {
+                life++;
+                timeSinceRegenLife = 0;
+            }
+            if (life >= 100)
+            {
+                takenDamageRecently = false;
+                timeSinceRegenLife = 0;
+                timeSinceTakenDamage = 0;
+            }
+        }
         CheckStatus();
     }
 
@@ -282,7 +314,7 @@ public class PlayerMovement : MonoBehaviour
         velocity = explosionDir;
 
         double distance = Math.Sqrt(Math.Abs(velocity.x * velocity.x + velocity.z * velocity.z)); //calculate distance from Object to Player with pythagoras
-        if (tag == "Dynamite")
+        if (tag == "Dynamite" || tag == "Grenade")
         {
             distance = (distance < 0.1f) ? 0.1f : (distance > 4f) ? 100f : distance;
         }
@@ -300,7 +332,7 @@ public class PlayerMovement : MonoBehaviour
         float yScaling = (float)(1 / Math.Abs(distance * 0.2));
         velocity.y += (yScaling > 10f) ? 10f : (yScaling < 0.5f) ? 0f : yScaling;
 
-
+       
 
     }
 
@@ -411,6 +443,16 @@ public class PlayerMovement : MonoBehaviour
                 GroundType gt = (GroundType)System.Enum.Parse(typeof(GroundType), c.tag);   // get 'angle' of floor
                 moveSpeedModGt = (double)1 / (1 + 0.75 * ((int)gt - 1));            // and adjust movespeed based on that                  
             }
+            else if (c.tag.Contains("Place_Holder")) // Change later for ground damage types
+            {
+                timeSinceStandingOnDamageGround += Time.deltaTime;
+                if (timeSinceStandingOnDamageGround > 0.5)
+                {
+                    TakeDamage(1);
+                    timeSinceStandingOnDamageGround = 0;
+                }
+                
+            }
         }
         movementSpeedModifier = (double)moveSpeedModGt * moveSpeedModOj;
 
@@ -419,13 +461,19 @@ public class PlayerMovement : MonoBehaviour
     public void FallDown()
     {
         controller.transform.Rotate(new Vector3(0.5f, 0.5f, 1));
-
     }
+
     public void StandUp()
     {
         controller.transform.eulerAngles = new Vector3(0, 0, 0);
     }
-
+    public void TakeDamage(int dmg)
+    {
+        life -= dmg;
+        takenDamageRecently = true;
+        timeSinceRegenLife = 0;
+        timeSinceTakenDamage = 0;
+    }
     public static void UpdateReload()
     {
         reloadReady = true;
@@ -433,6 +481,22 @@ public class PlayerMovement : MonoBehaviour
     public static void HandsAreFree()
     {
         pickedUpItem = false;
+    }
+    public void Respawn()
+    {
+        life = 100;
+        takenDamageRecently = false;
+        timeSinceTakenDamage = 0;
+        timeSinceRegenLife = 0;
+
+        //set position to starting point of the map
+        Vector3 spawnpoint =(Vector3) GameObject.Find("Spawn_Point").transform.position;
+
+        CharacterController playerCC = player.GetComponentInParent<CharacterController>();
+        playerCC.enabled = false;
+        playerCC.transform.position = spawnpoint;
+        playerCC.enabled = true;
+
     }
 }
 
