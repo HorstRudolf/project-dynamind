@@ -32,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
 
     bool standingUp = true;
     bool falling = false;
+    static bool explosionFall = false;
     float fallTimer = 0;
 
     public Text lifeUI;
@@ -41,6 +42,8 @@ public class PlayerMovement : MonoBehaviour
     float timeSinceRegenLife = 0;
     float timeSinceStandingOnDamageGround = 0;
 
+    bool fallStarted = false;
+    float timeSinceFall = 0;
     PickUp puItem;
 
     // create possible objects to modify player speed
@@ -58,33 +61,7 @@ public class PlayerMovement : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        lifeUI.text = life + "";
-        if (life <= 0) //add "respawn" functionality (go to last checkpoint I guess?)
-        {
-            Respawn();
-           
-        }
-        if (Input.GetKey("j"))
-        {
-            TakeDamage(5);
-        }
-        if (takenDamageRecently)
-        {
-            timeSinceTakenDamage += Time.deltaTime;
-            timeSinceRegenLife += Time.deltaTime;
-            if (timeSinceRegenLife >= 0.5 & timeSinceTakenDamage >= 5)
-            {
-                life++;
-                timeSinceRegenLife = 0;
-            }
-            if (life >= 100)
-            {
-                takenDamageRecently = false;
-                timeSinceRegenLife = 0;
-                timeSinceTakenDamage = 0;
-            }
-        }
+    {       
         CheckStatus();
     }
 
@@ -160,6 +137,7 @@ public class PlayerMovement : MonoBehaviour
 
     void CheckStatus()
     {
+        LifeUpdate();
         if (currentStatus == Status.Walking || currentStatus == Status.Sprinting)
         {
             if (Input.GetKey(KeyCode.LeftShift))
@@ -247,7 +225,7 @@ public class PlayerMovement : MonoBehaviour
     public void PlayerMove()
     {
         currentStatus = Status.Walking;
-
+        FallDamage();
         if (Input.GetKey("c") && !falling && standingUp)
         {
             FallDown();
@@ -312,7 +290,7 @@ public class PlayerMovement : MonoBehaviour
     public static void ExplosionForce(Vector3 explosionDir, String tag)
     {
         velocity = explosionDir;
-
+        explosionFall = true;
         double distance = Math.Sqrt(Math.Abs(velocity.x * velocity.x + velocity.z * velocity.z)); //calculate distance from Object to Player with pythagoras
         if (tag == "Dynamite" || tag == "Grenade")
         {
@@ -422,11 +400,11 @@ public class PlayerMovement : MonoBehaviour
 
         if (hand.transform.childCount > 0) // check to see if player is currently holding an item
         {
-            Transform objInHand = hand.transform.GetChild(0);
-            ObjectType oj = (ObjectType)System.Enum.Parse(typeof(ObjectType), objInHand.tag);
-            if ((int)oj <= 3)            // if item is 'medium' or lighter we can move while holding it
+            Rigidbody rb = hand.transform.GetChild(0).GetComponent<Rigidbody>();
+            float mass = rb.mass;
+            if (mass <= 3)            // if item is 'medium' or lighter we can move while holding it
             {
-                moveSpeedModOj = (double)1 / (1 + 0.5 * ((int)oj - 1));
+                moveSpeedModOj = 1 / (1 + 0.5 * (mass - 1));
             }
             else // else we can't move
             {
@@ -497,6 +475,66 @@ public class PlayerMovement : MonoBehaviour
         playerCC.transform.position = spawnpoint;
         playerCC.enabled = true;
 
+    }
+
+    public void LifeUpdate()
+    {
+        lifeUI.text = life + "";
+        if (life <= 0) //add "respawn" functionality (go to last checkpoint I guess?)
+        {
+            Respawn();
+
+        }
+        if (takenDamageRecently)
+        {
+            timeSinceTakenDamage += Time.deltaTime;
+            timeSinceRegenLife += Time.deltaTime;
+            if (timeSinceRegenLife >= 0.5 & timeSinceTakenDamage >= 5)
+            {
+                life++;
+                timeSinceRegenLife = 0;
+            }
+            if (life >= 100)
+            {
+                takenDamageRecently = false;
+                timeSinceRegenLife = 0;
+                timeSinceTakenDamage = 0;
+            }
+        }
+    }
+    public void FallDamage()
+    {
+        bool floorFound = false;
+
+        Collider[] grounded = Physics.OverlapSphere(player.transform.position, 1f);     
+        foreach(Collider col in grounded)
+        {
+            
+            if (col.gameObject.name != "PlayerModel" && !col.gameObject.name.Contains("Wall")) // when a colliding object is neither the player itself
+            {                                                                                  // nor a wall (aka player is flying)
+                floorFound = true;                                                             // we stop the FallDamage(); timer
+                break;
+            }
+        }
+        if (!floorFound)
+        {
+            fallStarted = true;
+        }
+        else if (floorFound && fallStarted)
+        {
+            fallStarted = false;
+            if (timeSinceFall > 1.5 && !explosionFall) // check to see if fall etiher crossed a min height or was caused by an explosion
+            {
+                double distance =( 0.5 * (9.81 * Math.Sqrt(timeSinceFall))); // if thats not the case we take damage
+                TakeDamage((int)distance);
+            }
+            timeSinceFall = 0;   // reset fall properties
+            explosionFall = false;
+        }
+        if (fallStarted)
+        {
+            timeSinceFall += Time.deltaTime;
+        }   
     }
 }
 
