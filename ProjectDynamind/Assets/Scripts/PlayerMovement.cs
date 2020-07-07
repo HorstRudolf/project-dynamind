@@ -525,8 +525,9 @@ public class PlayerMovement : MonoBehaviour
             fallStarted = false;
             if (timeSinceFall > 1.5 && !explosionFall) // check to see if fall etiher crossed a min height or was caused by an explosion
             {
-                double distance =( 0.5 * (9.81 * Math.Sqrt(timeSinceFall))); // if thats not the case we take damage
-                TakeDamage((int)distance);
+                double force = 5*(timeSinceFall-1.5) * 9.81; // if thats not the case we take damage
+
+                TakeDamage((int)force);
             }
             timeSinceFall = 0;   // reset fall properties
             explosionFall = false;
