@@ -6,13 +6,15 @@ public class PlayerVitals : MonoBehaviour
 {
 
     public int maxStamina;
-    private float stamina;
+    public float stamina;
 
     private int staminaFallRate;
 
     private int staminaRegainRate;
 
     private PlayerMovement.Status currentStatus;
+
+    public PlayerMovement.GroundType currentGround;
 
     public float countdown = 3;
 
@@ -29,12 +31,16 @@ public class PlayerVitals : MonoBehaviour
 
         currentStatus = PlayerMovement.currentStatus;
 
+        currentGround = PlayerMovement.gt;
+
     }
 
     // Update is called once per frame
     void Update()
     {
         currentStatus = PlayerMovement.currentStatus;
+        currentGround = PlayerMovement.gt;
+
         CheckStatus();
     }
 
@@ -58,6 +64,11 @@ public class PlayerVitals : MonoBehaviour
             countdown = 3;
         }
         else if (currentStatus == PlayerMovement.Status.Sprinting && stamina >= 0)
+        {
+            stamina -= Time.deltaTime / staminaFallRate;
+            countdown = 3;
+        }
+        else if ((currentGround == PlayerMovement.GroundType.BigAngle || currentGround == PlayerMovement.GroundType.MediumAngle) && stamina >= 0)
         {
             stamina -= Time.deltaTime / staminaFallRate;
             countdown = 3;
