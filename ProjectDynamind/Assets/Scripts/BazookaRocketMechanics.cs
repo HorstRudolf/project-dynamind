@@ -5,6 +5,7 @@ using UnityEngine;
 public class BazookaRocketMechanics : MonoBehaviour
 {
     public GameObject rocket;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -38,6 +39,7 @@ public class BazookaRocketMechanics : MonoBehaviour
             {
                 Vector3 explDir = col.transform.position - rocket.transform.position;
                 PlayerMovement.ExplosionForce(explDir, "Bazooka");
+                col.GetComponent<PlayerMovement>().TakeDamage(5);
             }
         }
         Destroy(rocket);

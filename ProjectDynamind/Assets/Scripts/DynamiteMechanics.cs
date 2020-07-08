@@ -137,9 +137,13 @@ public class DynamiteMechanics : MonoBehaviour
     }
     public void DisableRestrictions()
     {
-        dynObj.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-        dynObj.GetComponent<Rigidbody>().useGravity = true;
-        dynObj.GetComponent<CapsuleCollider>().enabled = true;
+        if (ammo > 0)
+        {
+            dynObj.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+            dynObj.GetComponent<Rigidbody>().useGravity = true;
+            dynObj.GetComponent<CapsuleCollider>().enabled = true;
+        }
+
         ui.text = "";
     }
 }
