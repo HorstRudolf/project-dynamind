@@ -280,7 +280,7 @@ public class PlayerMovement : MonoBehaviour
 
             if (Input.GetKey(KeyCode.Space) && isGrounded)
             {
-                velocity.y = Mathf.Sqrt(jumpHeigth * -2f * gravity);
+                velocity.y = Mathf.Sqrt(jumpHeigth * -1f * gravity);
             }
 
             // fall speed
