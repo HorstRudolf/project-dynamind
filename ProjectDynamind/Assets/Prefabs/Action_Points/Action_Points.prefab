@@ -52,6 +52,7 @@ MonoBehaviour:
   EndpointColor: {r: 1, g: 0.08618469, b: 0, a: 0.5019608}
   StandardColor: {r: 0, g: 0.0022244453, b: 1, a: 0.5019608}
   DeathColor: {r: 0.030848805, g: 0.0115254605, b: 0.3490566, a: 0.5411765}
+  DestructionColor: {r: 0, g: 0, b: 0, a: 0.5019608}
   FrameColor: {r: 0.6981132, g: 0.6981132, b: 0.6981132, a: 0.8}
 --- !u!1001 &3518741313946060647
 PrefabInstance:
