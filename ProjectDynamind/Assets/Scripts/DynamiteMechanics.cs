@@ -21,7 +21,7 @@ public class DynamiteMechanics : MonoBehaviour
     public float throwForce = 400f;
     public bool thrown = false;
     public bool infiniteAmmo = false;
-    static int ammo = 2;
+    static int ammo = 6;
 
     void Update()
     {
