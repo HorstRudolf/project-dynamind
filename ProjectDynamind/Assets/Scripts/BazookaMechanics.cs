@@ -45,7 +45,7 @@ public class BazookaMechanics : MonoBehaviour
         else
         {
             bazooka.GetComponent<Rigidbody>().useGravity = true;
-            bazooka.GetComponent<CapsuleCollider>().enabled = true;
+            bazooka.GetComponent<Collider>().enabled = true;
         }
 
 
@@ -55,13 +55,13 @@ public class BazookaMechanics : MonoBehaviour
         Rigidbody rocket = hand.transform.GetChild(0).GetComponent<Rigidbody>();
         hand.transform.DetachChildren();
         rocket.AddForce(1000f * cam.transform.forward);
-        rocket.GetComponent<CapsuleCollider>().enabled = true;
+        rocket.GetComponent<Collider>().enabled = true;
 
     }
     void Reload()
     {
         GameObject rock = Instantiate(rocket, hand);
-        rock.GetComponent<CapsuleCollider>().enabled = false;
+        rock.GetComponent<Collider>().enabled = false;
 
     }
     public void PickUp()
@@ -71,7 +71,7 @@ public class BazookaMechanics : MonoBehaviour
         {
             // create bazooka and apply restriction/position/rotation
             GameObject bazookaInstance = Instantiate(bazooka);
-            bazookaInstance.GetComponent<CapsuleCollider>().enabled = false;
+            bazookaInstance.GetComponent<Collider>().enabled = false;
             bazookaInstance.GetComponent<Rigidbody>().useGravity = false;
             bazookaInstance.transform.SetParent(rHand);
             bazookaInstance.transform.position = rHand.position;
@@ -88,11 +88,11 @@ public class BazookaMechanics : MonoBehaviour
             {
                 // drop item already in hand (as long as it's not a Bazooka)
                 rHand.transform.GetChild(0).GetComponent<Rigidbody>().useGravity = true;
-                rHand.transform.GetChild(0).GetComponent<CapsuleCollider>().enabled = true;
+                rHand.transform.GetChild(0).GetComponent<Collider>().enabled = true;
                 rHand.transform.DetachChildren();
                 // and create bazooka and apply restriction/position/rotation
                 GameObject bazookaInstance = Instantiate(bazooka);
-                bazookaInstance.GetComponent<CapsuleCollider>().enabled = false;
+                bazookaInstance.GetComponent<Collider>().enabled = false;
                 bazookaInstance.GetComponent<Rigidbody>().useGravity = false;
                 bazookaInstance.transform.SetParent(rHand);
                 bazookaInstance.transform.position = rHand.position;
