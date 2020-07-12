@@ -6,15 +6,19 @@ public class PlayerVitals : MonoBehaviour
 {
 
     public int maxStamina;
+    [SerializeField]
     private float stamina;
 
     private int staminaFallRate;
 
     private int staminaRegainRate;
-
+    [SerializeField]
     private PlayerMovement.Status currentStatus;
 
     public float countdown = 3;
+
+    [SerializeField]
+    private PlayerMovement.GroundType groundTag;
 
 
 
@@ -29,12 +33,16 @@ public class PlayerVitals : MonoBehaviour
 
         currentStatus = PlayerMovement.currentStatus;
 
+        groundTag = PlayerMovement.groundTag;
+
     }
 
     // Update is called once per frame
     void Update()
     {
+
         currentStatus = PlayerMovement.currentStatus;
+        groundTag = PlayerMovement.groundTag;
         CheckStatus();
     }
 
