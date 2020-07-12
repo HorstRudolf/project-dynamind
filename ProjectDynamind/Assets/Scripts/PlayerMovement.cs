@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     public Camera cam;
 
     public float speed = 12f;
+    public float ladderSpeed = 6f;
     public float gravity = -9.81f;
     public float jumpHeigth = 3f;
 
@@ -113,7 +114,7 @@ public class PlayerMovement : MonoBehaviour
             Vector3 move = transform.up * z;
 
             // Move player
-            controller.Move(move * speed * Time.deltaTime);
+            controller.Move(move * ladderSpeed * Time.deltaTime);
         }
         else if (Input.GetKey("s"))
         {
@@ -121,7 +122,7 @@ public class PlayerMovement : MonoBehaviour
             Vector3 move = transform.up * z;
 
             // Move player
-            controller.Move(move * speed * Time.deltaTime);
+            controller.Move(move * ladderSpeed * Time.deltaTime);
 
             if (playerTransform.gameObject.transform.position.y == position.y)
             {
