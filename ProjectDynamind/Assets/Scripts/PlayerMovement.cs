@@ -48,7 +48,7 @@ public class PlayerMovement : MonoBehaviour
     PickUp puItem;
 
     // create possible objects to modify player speed
-    enum GroundType { Floor = 1, SmallAngle = 2, MediumAngle = 3, BigAngle = 4 }
+   public enum GroundType { Floor = 1, SmallAngle = 2, MediumAngle = 3, BigAngle = 4 }
     public enum ObjectType { None = 1, Light = 2, Medium = 3, Heavy = 4, Untagged = 1 }
     public double movementSpeedModifier = 1;
 
@@ -60,10 +60,15 @@ public class PlayerMovement : MonoBehaviour
 
     Vector3 position;
 
+
+    public static GroundType groundTag = GroundType.Floor;
+
     // Update is called once per frame
     void Update()
-    {       
+    {
+        
         CheckStatus();
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -225,6 +230,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void PlayerMove()
     {
+        
+
         currentStatus = Status.Walking;
         FallDamage();
         if (Input.GetKey("c") && !falling && standingUp)
@@ -436,7 +443,8 @@ public class PlayerMovement : MonoBehaviour
             if (c.tag.Contains("Angle")) // check for floor that player stands on
             {
                 GroundType gt = (GroundType)System.Enum.Parse(typeof(GroundType), c.tag);   // get 'angle' of floor
-                moveSpeedModGt = (double)1 / (1 + 0.75 * ((int)gt - 1));            // and adjust movespeed based on that                  
+                moveSpeedModGt = (double)1 / (1 + 0.75 * ((int)gt - 1));            // and adjust movespeed based on that   
+                groundTag = gt;
             }
             else if (c.tag.Contains("Place_Holder")) // Change later for ground damage types
             {
@@ -447,6 +455,11 @@ public class PlayerMovement : MonoBehaviour
                     timeSinceStandingOnDamageGround = 0;
                 }
                 
+            }
+            else if (c.tag.Contains("Floor"))
+            {
+                GroundType gt = (GroundType)System.Enum.Parse(typeof(GroundType), c.tag);   // get 'angle' of floor
+                groundTag = gt;
             }
         }
         movementSpeedModifier = (double)moveSpeedModGt * moveSpeedModOj;
