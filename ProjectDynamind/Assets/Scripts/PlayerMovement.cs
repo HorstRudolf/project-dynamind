@@ -294,25 +294,24 @@ public class PlayerMovement : MonoBehaviour
         velocity = explosionDir;
         explosionFall = true;
         double distance = Math.Sqrt(Math.Abs(velocity.x * velocity.x + velocity.z * velocity.z)); //calculate distance from Object to Player with pythagoras
-        if (tag == "Dynamite" || tag == "Grenade")
-        {
-            distance = (distance < 0.1f) ? 0.1f : (distance > 4f) ? 100f : distance;
-        }
-        else if (tag == "Bazooka")
-        {
-            distance = (distance < 0.1f) ? 0.1f : (distance > 4f) ? 100f : distance;    // keep distance between 0.1 and 4 to avoid flying 
-                                                                                        // unrealistically far when distance is too high
-            distance /= 2;
-        }
+
+        distance = (distance < 0.1f) ? 0.1f : (distance > 4f) ? 100f : distance;
 
 
         velocity.x += (float)(5 * explosionDir.x / distance);
         velocity.z += (float)(5 * explosionDir.z / distance);
 
         float yScaling = (float)(1 / Math.Abs(distance * 0.2));
-        velocity.y += (yScaling > 10f) ? 10f : (yScaling < 0.5f) ? 0f : yScaling;
+        if (tag == "Bazooka")
+        {
+            distance /= 2;
+            velocity.y += (yScaling > 20f) ? 20f : (yScaling < 0.5f) ? 0f : yScaling;
+        }
+        else 
+            velocity.y += (yScaling > 10f) ? 10f : (yScaling < 0.5f) ? 0f : yScaling;
 
-       
+
+
 
     }
 

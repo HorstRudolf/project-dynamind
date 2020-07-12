@@ -8,14 +8,12 @@ public class BazookaMechanics : MonoBehaviour
 {
     public GameObject bazooka;
     public GameObject cam;
-    public Transform hand;
+    public Transform shaft;
     public GameObject rocket;
     public Transform rHand;
-    public Transform schaft;
 
     bool reloadStarted = false;
     float timer = 4;
-    int counter = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,13 +25,13 @@ public class BazookaMechanics : MonoBehaviour
     {
         if (bazooka.transform.parent != null) //only allow functions when we hold the bazooka in players hands
         {
-            if (Input.GetMouseButton(1) && hand.transform.childCount > 0)
+            if (Input.GetMouseButton(1) && shaft.transform.childCount > 0)
             {
                 Shoot();
                 reloadStarted = true;
                 timer = 0;
             }
-            if (hand.transform.childCount == 0 && timer >= 3)
+            if (shaft.transform.childCount == 0 && timer >= 3)
             {
                 Reload();
             }
@@ -52,15 +50,15 @@ public class BazookaMechanics : MonoBehaviour
     }
     void Shoot()
     {
-        Rigidbody rocket = hand.transform.GetChild(0).GetComponent<Rigidbody>();
-        hand.transform.DetachChildren();
+        Rigidbody rocket = shaft.transform.GetChild(0).GetComponent<Rigidbody>();
+        shaft.transform.DetachChildren();
         rocket.AddForce(1000f * cam.transform.forward);
         rocket.GetComponent<Collider>().enabled = true;
 
     }
     void Reload()
     {
-        GameObject rock = Instantiate(rocket, hand);
+        GameObject rock = Instantiate(rocket, shaft);
         rock.GetComponent<Collider>().enabled = false;
 
     }
@@ -80,7 +78,6 @@ public class BazookaMechanics : MonoBehaviour
             bazookaInstance.transform.rotation = Quaternion.Euler(rotationV);
 
             Destroy(bazooka);
-            counter++;
         }
         else
         {
