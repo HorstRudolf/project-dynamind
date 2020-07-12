@@ -51,9 +51,6 @@ public class DynamiteMechanics : MonoBehaviour
         {
             Explode();
         }
-
-
-
     }
     void ThrowDynamite()
     {

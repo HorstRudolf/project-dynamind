@@ -254,8 +254,10 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetKey("e"))
             {
                 TriggerScript();
-
-
+            }
+            else if (Input.GetMouseButton(0))
+            {
+                EquipItem();
             }
 
             isGrounded = controller.isGrounded;
@@ -278,7 +280,7 @@ public class PlayerMovement : MonoBehaviour
 
             if (Input.GetKey(KeyCode.Space) && isGrounded)
             {
-                velocity.y = Mathf.Sqrt(jumpHeigth * -2f * gravity);
+                velocity.y = Mathf.Sqrt(jumpHeigth * -1f * gravity);
             }
 
             // fall speed
@@ -392,6 +394,20 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
+    }
+    public void EquipItem()
+    {
+        Ray posit = cam.ScreenPointToRay(Input.mousePosition);
+
+        RaycastHit hit;
+        if (Physics.Raycast(posit, out hit, 5f))
+        {
+            if (hit.collider.GetComponent<DynamitCrateInteraction>() != null)
+            {
+                DynamitCrateInteraction dynCrate = hit.collider.GetComponent<DynamitCrateInteraction>();
+                dynCrate.EquipDynamite();
+            }
+        }
     }
     public void UpdateMovementspeed()
     {
