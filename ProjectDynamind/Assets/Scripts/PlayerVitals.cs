@@ -20,6 +20,9 @@ public class PlayerVitals : MonoBehaviour
     [SerializeField]
     private PlayerMovement.GroundType groundTag;
 
+    [SerializeField]
+    private PlayerMovement.CarryStatus carryStatus;
+
     private float privateCountdown;
 
     // Start is called before the first frame update
@@ -35,6 +38,8 @@ public class PlayerVitals : MonoBehaviour
 
         groundTag = PlayerMovement.groundTag;
 
+        carryStatus = PlayerMovement.currentCarryStatus;
+
         privateCountdown = countdown;
 
     }
@@ -45,6 +50,8 @@ public class PlayerVitals : MonoBehaviour
 
         currentStatus = PlayerMovement.currentStatus;
         groundTag = PlayerMovement.groundTag;
+        carryStatus = PlayerMovement.currentCarryStatus;
+
         CheckStatus();
     }
 
@@ -73,6 +80,11 @@ public class PlayerVitals : MonoBehaviour
             privateCountdown = countdown;
         }
         else if (groundTag.ToString().Contains("Angle") && stamina >= 0)
+        {
+            stamina -= Time.deltaTime / staminaFallRate;
+            privateCountdown = countdown;
+        }
+        else if (carryStatus == PlayerMovement.CarryStatus.ToHeavy && stamina >= 0)
         {
             stamina -= Time.deltaTime / staminaFallRate;
             privateCountdown = countdown;
