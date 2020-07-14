@@ -436,7 +436,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        Collider[] col = Physics.OverlapSphere(player.transform.position, 2f);
+        Collider[] col = Physics.OverlapSphere(player.transform.position, 0.1f);
         foreach (Collider c in col)
         {
 
@@ -456,10 +456,10 @@ public class PlayerMovement : MonoBehaviour
                 }
                 
             }
-            else if (c.tag.Contains("Floor"))
+            else if(c.tag.Contains("Floor"))
             {
-                GroundType gt = (GroundType)System.Enum.Parse(typeof(GroundType), c.tag);   // get 'angle' of floor
-                groundTag = gt;
+
+                groundTag = GroundType.Floor;
             }
         }
         movementSpeedModifier = (double)moveSpeedModGt * moveSpeedModOj;
