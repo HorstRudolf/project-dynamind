@@ -54,7 +54,11 @@ public class PlayerMovement : MonoBehaviour
 
     public enum Status { LadderClimbing, Walking, Exhausted, Sprinting }
 
+    public enum CarryStatus { Okay, ToHeavy}
+
     public static Status currentStatus = Status.Walking;
+
+    public static CarryStatus currentCarryStatus = CarryStatus.Okay;
 
     Transform playerTransform;
 
@@ -434,6 +438,16 @@ public class PlayerMovement : MonoBehaviour
             {
                 moveSpeedModOj = 0;
             }
+
+            if (mass >= 3)
+            {
+                currentCarryStatus = CarryStatus.ToHeavy;
+            }
+            else
+            {
+                currentCarryStatus = CarryStatus.Okay;
+            }
+
         }
 
         Collider[] col = Physics.OverlapSphere(player.transform.position, 0.1f);
