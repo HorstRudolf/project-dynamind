@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.Remoting;
 using UnityEngine;
 
 public class PushObjects : MonoBehaviour
@@ -32,6 +33,9 @@ public class PushObjects : MonoBehaviour
         // then you can also multiply the push velocity by that.
 
         // Apply the push
-        body.velocity = pushDir * pushPower * 1f/body.mass;
+        int objectMult = 1;
+        if (hit.gameObject.name == "Sphere")
+            objectMult = 25;
+        body.velocity = pushDir * pushPower * objectMult * 1f/body.mass;
     }
 }

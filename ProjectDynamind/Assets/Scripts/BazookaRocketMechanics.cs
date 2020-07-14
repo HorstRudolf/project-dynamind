@@ -25,7 +25,6 @@ public class BazookaRocketMechanics : MonoBehaviour
         Collider[] colliders = Physics.OverlapSphere(rocket.transform.position, 10f);
         foreach (Collider col in colliders)
         {
-
             Rigidbody rb = col.GetComponent<Rigidbody>();
             if (rb != null)
             {

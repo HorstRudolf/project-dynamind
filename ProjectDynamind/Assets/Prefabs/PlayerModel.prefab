@@ -6347,9 +6347,9 @@ MonoBehaviour:
   cam: {fileID: 3516154657198631501}
   speed: 12
   gravity: -9.81
-  jumpHeigth: 3
+  jumpHeigth: 1
+  lifeUI: {fileID: 0}
   movementSpeedModifier: 1
-  currentStatus: 1
 --- !u!114 &2067157965275324589
 MonoBehaviour:
   m_ObjectHideFlags: 0
