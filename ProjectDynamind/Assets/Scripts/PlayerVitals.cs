@@ -20,7 +20,7 @@ public class PlayerVitals : MonoBehaviour
     [SerializeField]
     private PlayerMovement.GroundType groundTag;
 
-
+    private float privateCountdown;
 
     // Start is called before the first frame update
     void Start()
@@ -35,6 +35,8 @@ public class PlayerVitals : MonoBehaviour
 
         groundTag = PlayerMovement.groundTag;
 
+        privateCountdown = countdown;
+
     }
 
     // Update is called once per frame
@@ -48,7 +50,7 @@ public class PlayerVitals : MonoBehaviour
 
     void CheckStatus()
     {
-    
+
 
         if (stamina <= 0)
         {
@@ -63,18 +65,23 @@ public class PlayerVitals : MonoBehaviour
         if (currentStatus == PlayerMovement.Status.LadderClimbing && stamina >= 0)
         {
             stamina -= Time.deltaTime / staminaFallRate;
-            countdown = 3;
+            privateCountdown = countdown;
         }
         else if (currentStatus == PlayerMovement.Status.Sprinting && stamina >= 0)
         {
             stamina -= Time.deltaTime / staminaFallRate;
-            countdown = 3;
+            privateCountdown = countdown;
         }
-        else if (stamina <= maxStamina && countdown > -1)
+        else if (groundTag.ToString().Contains("Angle") && stamina >= 0)
         {
-            countdown -= Time.deltaTime;
+            stamina -= Time.deltaTime / staminaFallRate;
+            privateCountdown = countdown;
         }
-        else if ((currentStatus == PlayerMovement.Status.Walking || currentStatus == PlayerMovement.Status.Exhausted) && stamina <= maxStamina && countdown <= 0)
+        else if (stamina <= maxStamina && privateCountdown > -1)
+        {
+            privateCountdown -= Time.deltaTime;
+        }
+        else if ((currentStatus == PlayerMovement.Status.Walking || currentStatus == PlayerMovement.Status.Exhausted) && stamina <= maxStamina && privateCountdown <= 0)
         {
             stamina += Time.deltaTime / staminaRegainRate;
         }
