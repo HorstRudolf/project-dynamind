@@ -21,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
     public float ladderSpeed = 6f;
     public float gravity = -9.81f;
     public float jumpHeigth = 3f;
+    float moveSpeedMod = 0.75f;
 
     public static Vector3 velocity;
     bool isGrounded;
@@ -59,7 +60,7 @@ public class PlayerMovement : MonoBehaviour
     Transform playerTransform;
 
     Vector3 position;
-
+    
 
     public static GroundType groundTag = GroundType.Floor;
 
@@ -280,7 +281,7 @@ public class PlayerMovement : MonoBehaviour
             float x = Input.GetAxis("Horizontal");
             float z = Input.GetAxis("Vertical");
 
-            Vector3 move = transform.right * x + transform.forward * z;
+            Vector3 move =moveSpeedMod*( transform.right * x + transform.forward * z);
 
             // Move player
             controller.Move(move * speed * Time.deltaTime * (float)movementSpeedModifier);
