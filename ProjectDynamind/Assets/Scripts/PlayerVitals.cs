@@ -6,17 +6,24 @@ public class PlayerVitals : MonoBehaviour
 {
 
     public int maxStamina;
+    [SerializeField]
     private float stamina;
 
     private int staminaFallRate;
 
     private int staminaRegainRate;
-
+    [SerializeField]
     private PlayerMovement.Status currentStatus;
 
     public float countdown = 3;
 
+    [SerializeField]
+    private PlayerMovement.GroundType groundTag;
 
+    [SerializeField]
+    private PlayerMovement.CarryStatus carryStatus;
+
+    private float privateCountdown;
 
     // Start is called before the first frame update
     void Start()
@@ -29,18 +36,28 @@ public class PlayerVitals : MonoBehaviour
 
         currentStatus = PlayerMovement.currentStatus;
 
+        groundTag = PlayerMovement.groundTag;
+
+        carryStatus = PlayerMovement.currentCarryStatus;
+
+        privateCountdown = countdown;
+
     }
 
     // Update is called once per frame
     void Update()
     {
+
         currentStatus = PlayerMovement.currentStatus;
+        groundTag = PlayerMovement.groundTag;
+        carryStatus = PlayerMovement.currentCarryStatus;
+
         CheckStatus();
     }
 
     void CheckStatus()
     {
-    
+
 
         if (stamina <= 0)
         {
@@ -55,18 +72,28 @@ public class PlayerVitals : MonoBehaviour
         if (currentStatus == PlayerMovement.Status.LadderClimbing && stamina >= 0)
         {
             stamina -= Time.deltaTime / staminaFallRate;
-            countdown = 3;
+            privateCountdown = countdown;
         }
         else if (currentStatus == PlayerMovement.Status.Sprinting && stamina >= 0)
         {
             stamina -= Time.deltaTime / staminaFallRate;
-            countdown = 3;
+            privateCountdown = countdown;
         }
-        else if (stamina <= maxStamina && countdown > -1)
+        else if (groundTag.ToString().Contains("Angle") && stamina >= 0)
         {
-            countdown -= Time.deltaTime;
+            stamina -= Time.deltaTime / staminaFallRate;
+            privateCountdown = countdown;
         }
-        else if ((currentStatus == PlayerMovement.Status.Walking || currentStatus == PlayerMovement.Status.Exhausted) && stamina <= maxStamina && countdown <= 0)
+        else if (carryStatus == PlayerMovement.CarryStatus.ToHeavy && stamina >= 0)
+        {
+            stamina -= Time.deltaTime / staminaFallRate;
+            privateCountdown = countdown;
+        }
+        else if (stamina <= maxStamina && privateCountdown > -1)
+        {
+            privateCountdown -= Time.deltaTime;
+        }
+        else if ((currentStatus == PlayerMovement.Status.Walking || currentStatus == PlayerMovement.Status.Exhausted) && stamina <= maxStamina && privateCountdown <= 0)
         {
             stamina += Time.deltaTime / staminaRegainRate;
         }

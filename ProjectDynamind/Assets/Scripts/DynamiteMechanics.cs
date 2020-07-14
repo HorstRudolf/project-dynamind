@@ -25,6 +25,7 @@ public class DynamiteMechanics : MonoBehaviour
 
     void Update()
     {
+
         if (infiniteAmmo)
         {
             ui.text = "infinite";

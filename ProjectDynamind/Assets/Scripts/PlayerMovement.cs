@@ -18,8 +18,10 @@ public class PlayerMovement : MonoBehaviour
     public Camera cam;
 
     public float speed = 12f;
+    public float ladderSpeed = 6f;
     public float gravity = -9.81f;
     public float jumpHeigth = 3f;
+    float moveSpeedModInitial = 0.75f;
 
     public static Vector3 velocity;
     bool isGrounded;
@@ -47,22 +49,31 @@ public class PlayerMovement : MonoBehaviour
     PickUp puItem;
 
     // create possible objects to modify player speed
-    enum GroundType { Floor = 1, SmallAngle = 2, MediumAngle = 3, BigAngle = 4 }
+   public enum GroundType { Floor = 1, SmallAngle = 2, MediumAngle = 3, BigAngle = 4 }
     public enum ObjectType { None = 1, Light = 2, Medium = 3, Heavy = 4, Untagged = 1 }
     public double movementSpeedModifier = 1;
 
     public enum Status { LadderClimbing, Walking, Exhausted, Sprinting }
 
+    public enum CarryStatus { Okay, ToHeavy}
+
     public static Status currentStatus = Status.Walking;
+
+    public static CarryStatus currentCarryStatus = CarryStatus.Okay;
 
     Transform playerTransform;
 
     Vector3 position;
 
+
+    public static GroundType groundTag = GroundType.Floor;
+
     // Update is called once per frame
     void Update()
-    {       
+    {
+        
         CheckStatus();
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -113,7 +124,7 @@ public class PlayerMovement : MonoBehaviour
             Vector3 move = transform.up * z;
 
             // Move player
-            controller.Move(move * speed * Time.deltaTime);
+            controller.Move(move * ladderSpeed * Time.deltaTime);
         }
         else if (Input.GetKey("s"))
         {
@@ -121,7 +132,7 @@ public class PlayerMovement : MonoBehaviour
             Vector3 move = transform.up * z;
 
             // Move player
-            controller.Move(move * speed * Time.deltaTime);
+            controller.Move(move * ladderSpeed * Time.deltaTime);
 
             if (playerTransform.gameObject.transform.position.y == position.y)
             {
@@ -176,7 +187,7 @@ public class PlayerMovement : MonoBehaviour
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
-        Vector3 move = transform.right * x + transform.forward * z;
+        Vector3 move = moveSpeedModInitial * (transform.right * x + transform.forward * z);
 
         // Move player
         controller.Move(move * speed * 1.7f * Time.deltaTime * (float)movementSpeedModifier);
@@ -224,6 +235,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void PlayerMove()
     {
+        
+
         currentStatus = Status.Walking;
         FallDamage();
         if (Input.GetKey("c") && !falling && standingUp)
@@ -280,7 +293,7 @@ public class PlayerMovement : MonoBehaviour
 
             if (Input.GetKey(KeyCode.Space) && isGrounded)
             {
-                velocity.y = Mathf.Sqrt(jumpHeigth * -2f * gravity);
+                velocity.y = Mathf.Sqrt(jumpHeigth * -1f * gravity);
             }
 
             // fall speed
@@ -425,16 +438,31 @@ public class PlayerMovement : MonoBehaviour
             {
                 moveSpeedModOj = 0;
             }
+
+            if (mass >= 3)
+            {
+                currentCarryStatus = CarryStatus.ToHeavy;
+            }
+            else
+            {
+                currentCarryStatus = CarryStatus.Okay;
+            }
+
+        }
+        else
+        {
+            currentCarryStatus = CarryStatus.Okay;
         }
 
-        Collider[] col = Physics.OverlapSphere(player.transform.position, 2f);
+        Collider[] col = Physics.OverlapSphere(player.transform.position, 0.1f);
         foreach (Collider c in col)
         {
 
             if (c.tag.Contains("Angle")) // check for floor that player stands on
             {
                 GroundType gt = (GroundType)System.Enum.Parse(typeof(GroundType), c.tag);   // get 'angle' of floor
-                moveSpeedModGt = (double)1 / (1 + 0.75 * ((int)gt - 1));            // and adjust movespeed based on that                  
+                moveSpeedModGt = (double)1 / (1 + 0.75 * ((int)gt - 1));            // and adjust movespeed based on that   
+                groundTag = gt;
             }
             else if (c.tag.Contains("Place_Holder")) // Change later for ground damage types
             {
@@ -445,6 +473,11 @@ public class PlayerMovement : MonoBehaviour
                     timeSinceStandingOnDamageGround = 0;
                 }
                 
+            }
+            else if(c.tag.Contains("Floor"))
+            {
+
+                groundTag = GroundType.Floor;
             }
         }
         movementSpeedModifier = (double)moveSpeedModGt * moveSpeedModOj;
