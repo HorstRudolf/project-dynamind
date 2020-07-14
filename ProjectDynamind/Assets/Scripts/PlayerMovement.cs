@@ -449,6 +449,10 @@ public class PlayerMovement : MonoBehaviour
             }
 
         }
+        else
+        {
+            currentCarryStatus = CarryStatus.Okay;
+        }
 
         Collider[] col = Physics.OverlapSphere(player.transform.position, 0.1f);
         foreach (Collider c in col)
