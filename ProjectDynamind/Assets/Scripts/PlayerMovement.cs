@@ -21,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
     public float ladderSpeed = 6f;
     public float gravity = -9.81f;
     public float jumpHeigth = 3f;
-    float moveSpeedModInitial = 0.70f;
+    float moveSpeedModInitial = 0.60f;
 
     public static Vector3 velocity;
     bool isGrounded;
@@ -574,7 +574,7 @@ public class PlayerMovement : MonoBehaviour
             if (timeSinceFall > 0.6 && !explosionFall) // check to see if fall etiher crossed a min height or was caused by an explosion
             {
                 double force = (timeSinceFall-0.6) * 9.81; // if thats not the case we take damage
-                TakeDamage((int)(force*force));
+                TakeDamage((int)(0.33*force*force));
             }
             timeSinceFall = 0;   // reset fall properties
             explosionFall = false;
