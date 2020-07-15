@@ -80,7 +80,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.gameObject.tag == "Ladder")
         {
-            SetPlayerPositionToLaderPosition(other);
+           // SetPlayerPositionToLaderPosition(other);
 
             currentStatus = Status.LadderClimbing;
         }
@@ -90,7 +90,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.gameObject.tag == "Ladder")
         {
-            SetPlayerPositionToDefault(other);
+            //SetPlayerPositionToDefault(other);
 
             currentStatus = Status.Walking;
         }
