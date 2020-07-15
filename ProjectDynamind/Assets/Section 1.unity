@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 814136}
   m_Layer: 0
   m_Name: Floor 2
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -226,6 +226,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: slope (12)
+      objectReference: {fileID: 0}
+    - target: {fileID: 823186094008063396, guid: d5ea0a0bf31f75045b64bb067c3cdf6e,
+        type: 3}
+      propertyPath: m_TagString
+      value: MediumAngle
       objectReference: {fileID: 0}
     - target: {fileID: 4411226069004363703, guid: d5ea0a0bf31f75045b64bb067c3cdf6e,
         type: 3}
@@ -425,6 +430,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: slope (15)
       objectReference: {fileID: 0}
+    - target: {fileID: 823186094008063396, guid: d5ea0a0bf31f75045b64bb067c3cdf6e,
+        type: 3}
+      propertyPath: m_TagString
+      value: MediumAngle
+      objectReference: {fileID: 0}
     - target: {fileID: 4411226069004363703, guid: d5ea0a0bf31f75045b64bb067c3cdf6e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -523,6 +533,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: slope (17)
+      objectReference: {fileID: 0}
+    - target: {fileID: 823186094008063396, guid: d5ea0a0bf31f75045b64bb067c3cdf6e,
+        type: 3}
+      propertyPath: m_TagString
+      value: MediumAngle
       objectReference: {fileID: 0}
     - target: {fileID: 4411226069004363703, guid: d5ea0a0bf31f75045b64bb067c3cdf6e,
         type: 3}
@@ -625,7 +640,7 @@ GameObject:
   - component: {fileID: 155028382}
   m_Layer: 0
   m_Name: Floor 4 (3)
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -826,6 +841,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: slope (11)
+      objectReference: {fileID: 0}
+    - target: {fileID: 823186094008063396, guid: d5ea0a0bf31f75045b64bb067c3cdf6e,
+        type: 3}
+      propertyPath: m_TagString
+      value: MediumAngle
       objectReference: {fileID: 0}
     - target: {fileID: 4411226069004363703, guid: d5ea0a0bf31f75045b64bb067c3cdf6e,
         type: 3}
@@ -1217,6 +1237,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: slope (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 823186094008063396, guid: d5ea0a0bf31f75045b64bb067c3cdf6e,
+        type: 3}
+      propertyPath: m_TagString
+      value: MediumAngle
+      objectReference: {fileID: 0}
     - target: {fileID: 4411226069004363703, guid: d5ea0a0bf31f75045b64bb067c3cdf6e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1349,20 +1374,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reachForAction: 4
   tagOfObject: Player
---- !u!114 &384654862
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 384654859}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afe932a42e1d9f94db761c5107afa419, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dest: {fileID: 1737064468}
-  cam: {fileID: 381575516}
 --- !u!65 &384654863
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1406,7 +1417,7 @@ GameObject:
   - component: {fileID: 401336363}
   m_Layer: 0
   m_Name: Cube (16)
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1497,6 +1508,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: slope
       objectReference: {fileID: 0}
+    - target: {fileID: 823186094008063396, guid: d5ea0a0bf31f75045b64bb067c3cdf6e,
+        type: 3}
+      propertyPath: m_TagString
+      value: MediumAngle
+      objectReference: {fileID: 0}
     - target: {fileID: 4411226069004363703, guid: d5ea0a0bf31f75045b64bb067c3cdf6e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1585,6 +1601,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: slope (16)
+      objectReference: {fileID: 0}
+    - target: {fileID: 823186094008063396, guid: d5ea0a0bf31f75045b64bb067c3cdf6e,
+        type: 3}
+      propertyPath: m_TagString
+      value: MediumAngle
       objectReference: {fileID: 0}
     - target: {fileID: 4411226069004363703, guid: d5ea0a0bf31f75045b64bb067c3cdf6e,
         type: 3}
@@ -1687,7 +1708,7 @@ GameObject:
   - component: {fileID: 436665058}
   m_Layer: 0
   m_Name: Floor 4 (2)
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1780,7 +1801,7 @@ GameObject:
   - component: {fileID: 448199733}
   m_Layer: 0
   m_Name: Floor 3
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2102,7 +2123,7 @@ PrefabInstance:
     - target: {fileID: -927199367670048503, guid: 03058dab52001814ba1feb2d8553ca11,
         type: 3}
       propertyPath: m_TagString
-      value: Heavy
+      value: MediumAngle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 03058dab52001814ba1feb2d8553ca11, type: 3}
@@ -2120,7 +2141,7 @@ GameObject:
   - component: {fileID: 494477608}
   m_Layer: 8
   m_Name: Floor
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2496,6 +2517,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: slope (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 823186094008063396, guid: d5ea0a0bf31f75045b64bb067c3cdf6e,
+        type: 3}
+      propertyPath: m_TagString
+      value: MediumAngle
+      objectReference: {fileID: 0}
     - target: {fileID: 4411226069004363703, guid: d5ea0a0bf31f75045b64bb067c3cdf6e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2594,6 +2620,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: slope (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 823186094008063396, guid: d5ea0a0bf31f75045b64bb067c3cdf6e,
+        type: 3}
+      propertyPath: m_TagString
+      value: MediumAngle
       objectReference: {fileID: 0}
     - target: {fileID: 4411226069004363703, guid: d5ea0a0bf31f75045b64bb067c3cdf6e,
         type: 3}
@@ -2696,7 +2727,7 @@ GameObject:
   - component: {fileID: 786503939}
   m_Layer: 0
   m_Name: Floor 1
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2886,6 +2917,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: slope (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 823186094008063396, guid: d5ea0a0bf31f75045b64bb067c3cdf6e,
+        type: 3}
+      propertyPath: m_TagString
+      value: MediumAngle
+      objectReference: {fileID: 0}
     - target: {fileID: 4411226069004363703, guid: d5ea0a0bf31f75045b64bb067c3cdf6e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2984,6 +3020,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: slope (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 823186094008063396, guid: d5ea0a0bf31f75045b64bb067c3cdf6e,
+        type: 3}
+      propertyPath: m_TagString
+      value: MediumAngle
       objectReference: {fileID: 0}
     - target: {fileID: 4411226069004363703, guid: d5ea0a0bf31f75045b64bb067c3cdf6e,
         type: 3}
@@ -3176,6 +3217,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: slope (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 823186094008063396, guid: d5ea0a0bf31f75045b64bb067c3cdf6e,
+        type: 3}
+      propertyPath: m_TagString
+      value: MediumAngle
       objectReference: {fileID: 0}
     - target: {fileID: 4411226069004363703, guid: d5ea0a0bf31f75045b64bb067c3cdf6e,
         type: 3}
@@ -3565,7 +3611,7 @@ GameObject:
   - component: {fileID: 957729100}
   m_Layer: 0
   m_Name: Cube (15)
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3655,6 +3701,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: slope (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 823186094008063396, guid: d5ea0a0bf31f75045b64bb067c3cdf6e,
+        type: 3}
+      propertyPath: m_TagString
+      value: MediumAngle
       objectReference: {fileID: 0}
     - target: {fileID: 4411226069004363703, guid: d5ea0a0bf31f75045b64bb067c3cdf6e,
         type: 3}
@@ -4028,7 +4079,7 @@ GameObject:
   - component: {fileID: 1136189540}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4121,7 +4172,7 @@ GameObject:
   - component: {fileID: 1137114393}
   m_Layer: 0
   m_Name: Floor 4 (1)
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4607,6 +4658,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: slope (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 823186094008063396, guid: d5ea0a0bf31f75045b64bb067c3cdf6e,
+        type: 3}
+      propertyPath: m_TagString
+      value: MediumAngle
+      objectReference: {fileID: 0}
     - target: {fileID: 4411226069004363703, guid: d5ea0a0bf31f75045b64bb067c3cdf6e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5081,7 +5137,7 @@ GameObject:
   - component: {fileID: 1546041894}
   m_Layer: 0
   m_Name: Cube (9)
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5532,7 +5588,7 @@ GameObject:
   - component: {fileID: 1616345391}
   m_Layer: 0
   m_Name: Floor 4 (4)
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6134,6 +6190,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: slope (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 823186094008063396, guid: d5ea0a0bf31f75045b64bb067c3cdf6e,
+        type: 3}
+      propertyPath: m_TagString
+      value: MediumAngle
       objectReference: {fileID: 0}
     - target: {fileID: 4411226069004363703, guid: d5ea0a0bf31f75045b64bb067c3cdf6e,
         type: 3}
@@ -6988,7 +7049,7 @@ GameObject:
   - component: {fileID: 2013678031}
   m_Layer: 0
   m_Name: Floor 4
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7254,6 +7315,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: slope (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 823186094008063396, guid: d5ea0a0bf31f75045b64bb067c3cdf6e,
+        type: 3}
+      propertyPath: m_TagString
+      value: MediumAngle
       objectReference: {fileID: 0}
     - target: {fileID: 4411226069004363703, guid: d5ea0a0bf31f75045b64bb067c3cdf6e,
         type: 3}

@@ -13,6 +13,7 @@ TagManager:
   - MediumAngle
   - BigAngle
   - Ladder
+  - Floor
   layers:
   - Default
   - TransparentFX
