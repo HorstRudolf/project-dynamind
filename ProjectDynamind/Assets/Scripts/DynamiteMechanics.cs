@@ -22,6 +22,7 @@ public class DynamiteMechanics : MonoBehaviour
     public bool thrown = false;
     public bool infiniteAmmo = false;
     static int ammo = 6;
+    public float explosionForce = 1000f;
 
     void Update()
     {
@@ -81,7 +82,7 @@ public class DynamiteMechanics : MonoBehaviour
             Rigidbody rb = col.GetComponent<Rigidbody>();
             if (rb != null) // add force if it's a rigidbody
             {
-                rb.AddExplosionForce(750f, dynObj.transform.position, 10f, 0.1f, ForceMode.Acceleration);
+                rb.AddExplosionForce(explosionForce, dynObj.transform.position, 10f, 0.1f);
             }
             else if (col is CharacterController) // seperate ExplosionForce for character due to cc restrictions
             {
