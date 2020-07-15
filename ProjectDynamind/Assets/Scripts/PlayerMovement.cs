@@ -21,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
     public float ladderSpeed = 6f;
     public float gravity = -9.81f;
     public float jumpHeigth = 3f;
-    float moveSpeedModInitial = 0.75f;
+    float moveSpeedModInitial = 0.70f;
 
     public static Vector3 velocity;
     bool isGrounded;
@@ -141,7 +141,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (Input.GetKey(KeyCode.Space))
         {
-            controller.Move(player.transform.forward * -jumpHeigth * 2 * Time.deltaTime);
+            controller.Move(player.transform.forward * -jumpHeigth *2 * Time.deltaTime);
         }
         position = new Vector3(0, playerTransform.gameObject.transform.position.y, 0);
     }
@@ -239,28 +239,28 @@ public class PlayerMovement : MonoBehaviour
 
         currentStatus = Status.Walking;
         FallDamage();
-        if (Input.GetKey("c") && !falling && standingUp)
-        {
-            FallDown();
-            falling = true;
+        //if (Input.GetKey("c") && !falling && standingUp)
+        //{
+        //    FallDown();
+        //    falling = true;
 
-        }
-        else if (Input.GetKey("v") && !falling && !standingUp)
-        {
-            StandUp();
-            standingUp = true;
-        }
-        if (falling)
-        {
-            fallTimer++;
-            FallDown();
-            if (fallTimer > 90)
-            {
-                falling = false;
-                fallTimer = 0;
-                standingUp = false;
-            }
-        }
+        //}
+        //else if (Input.GetKey("v") && !falling && !standingUp)
+        //{
+        //    StandUp();
+        //    standingUp = true;
+        //}
+        //if (falling)
+        //{
+        //    fallTimer++;
+        //    FallDown();
+        //    if (fallTimer > 90)
+        //    {
+        //        falling = false;
+        //        fallTimer = 0;
+        //        standingUp = false;
+        //    }
+        //}
         if (standingUp)
         {
             UpdateMovementspeed();
@@ -285,7 +285,7 @@ public class PlayerMovement : MonoBehaviour
             float x = Input.GetAxis("Horizontal");
             float z = Input.GetAxis("Vertical");
 
-            Vector3 move = transform.right * x + transform.forward * z;
+            Vector3 move = moveSpeedModInitial*(transform.right * x + transform.forward * z);
 
             // Move player
             controller.Move(move * speed * Time.deltaTime * (float)movementSpeedModifier);
@@ -293,7 +293,7 @@ public class PlayerMovement : MonoBehaviour
 
             if (Input.GetKey(KeyCode.Space) && isGrounded)
             {
-                velocity.y = Mathf.Sqrt(jumpHeigth * -1f * gravity);
+                velocity.y = Mathf.Sqrt(jumpHeigth * -2f * gravity);
             }
 
             // fall speed
