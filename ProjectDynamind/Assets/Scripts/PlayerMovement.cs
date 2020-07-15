@@ -571,11 +571,10 @@ public class PlayerMovement : MonoBehaviour
         else if (floorFound && fallStarted)
         {
             fallStarted = false;
-            if (timeSinceFall > 1.5 && !explosionFall) // check to see if fall etiher crossed a min height or was caused by an explosion
+            if (timeSinceFall > 0.6 && !explosionFall) // check to see if fall etiher crossed a min height or was caused by an explosion
             {
-                double force = 5*(timeSinceFall-1.5) * 9.81; // if thats not the case we take damage
-
-                TakeDamage((int)force);
+                double force = (timeSinceFall-0.6) * 9.81; // if thats not the case we take damage
+                TakeDamage((int)(force*force));
             }
             timeSinceFall = 0;   // reset fall properties
             explosionFall = false;

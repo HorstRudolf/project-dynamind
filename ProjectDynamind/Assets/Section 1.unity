@@ -1329,12 +1329,6 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: d47002473c279d44a9e08e26722043ca, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d5ea0a0bf31f75045b64bb067c3cdf6e, type: 3}
---- !u!1 &381575516 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3516154657198631489, guid: 4a5ab7b380ca0d5449a0b7c60536d48d,
-    type: 3}
-  m_PrefabInstance: {fileID: 879249653}
-  m_PrefabAsset: {fileID: 0}
 --- !u!20 &381575520 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 3516154657198631501, guid: 4a5ab7b380ca0d5449a0b7c60536d48d,
@@ -4855,20 +4849,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1172897773}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1368968238
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1368968237}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afe932a42e1d9f94db761c5107afa419, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dest: {fileID: 1737064468}
-  cam: {fileID: 381575516}
 --- !u!114 &1368968239
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5886,20 +5866,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reachForAction: 4
   tagOfObject: Player
---- !u!114 &1684879023
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1684879020}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afe932a42e1d9f94db761c5107afa419, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dest: {fileID: 1737064468}
-  cam: {fileID: 381575516}
 --- !u!65 &1684879024
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6068,12 +6034,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 24f2e6ccda1b1454d9af71ffb69b719f, type: 3}
---- !u!4 &1737064468 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 491792579253619728, guid: 4a5ab7b380ca0d5449a0b7c60536d48d,
-    type: 3}
-  m_PrefabInstance: {fileID: 879249653}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1739596509
 GameObject:
   m_ObjectHideFlags: 0
