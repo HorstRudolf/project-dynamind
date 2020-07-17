@@ -52,6 +52,7 @@ public class BazookaMechanics : MonoBehaviour
     {
         Rigidbody rocket = shaft.transform.GetChild(0).GetComponent<Rigidbody>();
         shaft.transform.DetachChildren();
+
         rocket.AddForce(1000f * cam.transform.forward);
         rocket.GetComponent<Collider>().enabled = true;
 
