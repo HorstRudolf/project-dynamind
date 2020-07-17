@@ -25,7 +25,7 @@ public class GrenadeMechanics : MonoBehaviour
     void Update()
     {
         text.text = "Explodetimer: " + timer + " seconds";
-        // either decrease the explosiontimer so grenade will explode, or add to it when it's in players hand based on scroll wheel movement
+        // when the grenade is free in the world(aka after it was shot) we start the timer for the explosion
         if (grenade.transform.parent == null)
         {
             timer -= Time.deltaTime;
@@ -33,6 +33,7 @@ public class GrenadeMechanics : MonoBehaviour
         }
         else
         {
+            // adjust explosion timer based on mousewheel scrolling of user
             timer += Input.GetAxis("Mouse ScrollWheel");
             if (timer > 6)
             {
@@ -49,8 +50,8 @@ public class GrenadeMechanics : MonoBehaviour
             Explode();
             Destroy(grenade);
         }
-        if (grenade.transform.parent != null && grenade.transform.parent.parent.parent == null) // if third parent(grenadeLauncher obj is null
-        {                                                                                       // then player doesn't hold it anymore, hence we 
+        if (grenade.transform.parent != null && grenade.transform.parent.parent.parent == null) // if third parent(grenadeLauncher) obj is null
+        {                                                                                       // then player doesn't hold the Launcher anymore, hence we 
             Destroy(grenade);                                                                   // destroy the grenade (prevents bugs)
             text.text = "";                                                                     // and remove the explosiontimer
         }

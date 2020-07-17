@@ -239,28 +239,7 @@ public class PlayerMovement : MonoBehaviour
 
         currentStatus = Status.Walking;
         FallDamage();
-        //if (Input.GetKey("c") && !falling && standingUp)
-        //{
-        //    FallDown();
-        //    falling = true;
 
-        //}
-        //else if (Input.GetKey("v") && !falling && !standingUp)
-        //{
-        //    StandUp();
-        //    standingUp = true;
-        //}
-        //if (falling)
-        //{
-        //    fallTimer++;
-        //    FallDown();
-        //    if (fallTimer > 90)
-        //    {
-        //        falling = false;
-        //        fallTimer = 0;
-        //        standingUp = false;
-        //    }
-        //}
         if (standingUp)
         {
             UpdateMovementspeed();
@@ -533,16 +512,16 @@ public class PlayerMovement : MonoBehaviour
             Respawn();
 
         }
-        if (takenDamageRecently)
+        if (takenDamageRecently) 
         {
             timeSinceTakenDamage += Time.deltaTime;
             timeSinceRegenLife += Time.deltaTime;
-            if (timeSinceRegenLife >= 0.5 & timeSinceTakenDamage >= 5)
+            if (timeSinceRegenLife >= 0.5 & timeSinceTakenDamage >= 5) //regen one life every 0.5 seconds after not taking damage for 5s
             {
                 life++;
                 timeSinceRegenLife = 0;
             }
-            if (life >= 100)
+            if (life >= 100) // stop regenerating life when it's full
             {
                 takenDamageRecently = false;
                 timeSinceRegenLife = 0;
@@ -559,7 +538,7 @@ public class PlayerMovement : MonoBehaviour
         {
             
             if (col.gameObject.name != "PlayerModel" && !col.gameObject.name.Contains("Wall")) // when a colliding object is neither the player itself
-            {                                                                                  // nor a wall (aka player is flying)
+            {                                                                                  // nor a wall (aka player isn't falling anymore)
                 floorFound = true;                                                             // we stop the FallDamage(); timer
                 break;
             }

@@ -35,8 +35,9 @@ public class DynamiteMechanics : MonoBehaviour
         {
             ui.text = ammo + "";
         }
-        
-        if (GameObject.Find("DynamiteObject(Clone)") == null && countdown <= 0 && !pickedUpGameObject && (ammo > 0 ||infiniteAmmo)) // create one object when none exist
+
+        // create one dyn object when none exist
+        if (GameObject.Find("DynamiteObject(Clone)") == null && countdown <= 0 && !pickedUpGameObject && (ammo > 0 ||infiniteAmmo)) 
         {
             dynSpawnee.GetComponent<Rigidbody>().useGravity = false;
             dynObj = Instantiate(dynSpawnee, rHand);
@@ -45,8 +46,8 @@ public class DynamiteMechanics : MonoBehaviour
 
 
         }
-        else if (Input.GetMouseButtonDown(1) && GameObject.Find("DynamiteObject(Clone)") != null && !thrown) // when obj exists and we press 'throw'-button it throws
-        {
+        else if (Input.GetMouseButtonDown(1) && GameObject.Find("DynamiteObject(Clone)") != null && !thrown) // when obj exists and we press 'throw'-button it throws 
+        {                                                                                                    // the dyn in the direction the player cam is facing
             ThrowDynamite();
             ammo--;
         }
@@ -99,12 +100,14 @@ public class DynamiteMechanics : MonoBehaviour
     {
         if (rHand.transform.childCount == 0)
         {
+            // create dynobj and put it in players hand with needed restrictions
             GameObject dynInstance = Instantiate(dynObj);
             dynInstance.GetComponent<CapsuleCollider>().enabled = false;
             dynInstance.GetComponent<Rigidbody>().useGravity = false;
             dynInstance.transform.SetParent(rHand);
             dynInstance.transform.position = rHand.position;
             dynInstance.transform.rotation = rHand.rotation;
+            // destroy the dynobj on the ground
             Destroy(dynObj);
 
         }
@@ -121,6 +124,7 @@ public class DynamiteMechanics : MonoBehaviour
                 dynInstance.transform.SetParent(rHand);
                 dynInstance.transform.position = rHand.position;
                 dynInstance.transform.rotation = rHand.rotation;
+
                 Destroy(dynObj);
 
             }

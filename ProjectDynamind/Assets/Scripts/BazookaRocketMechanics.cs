@@ -26,7 +26,7 @@ public class BazookaRocketMechanics : MonoBehaviour
         foreach (Collider col in colliders)
         {
             Rigidbody rb = col.GetComponent<Rigidbody>();
-            if (rb != null)
+            if (rb != null) // Add explosionforce to all nearby rigidbody object
             {
                 if (rb.mass < 4) // Mass of 'very-heavy' object, change if needed
                 {
@@ -34,7 +34,7 @@ public class BazookaRocketMechanics : MonoBehaviour
                 }
                 
             }
-            else if (col.tag == "Player")
+            else if (col.tag == "Player") // or player
             {
                 Vector3 explDir = col.transform.position - rocket.transform.position;
                 PlayerMovement.ExplosionForce(explDir, "Bazooka");
